@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ajouter1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible">
+
+    <Button
+        android:id="@+id/ajouter"
+        android:layout_width="57dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/txt_nomAliment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="10dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/nom_de_aliment"
+        android:inputType="text"
+        android:text="@string/nom_de_aliment"
+        app:layout_constraintBottom_toTopOf="@+id/editText4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="125dp"
+        android:ems="10"
+        android:hint="@string/quantite"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:text="@string/quantite"
+        app:layout_constraintBottom_toTopOf="@+id/ca_expiration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nomAliment" />
+
+    <CalendarView
+        android:id="@+id/ca_expiration"
+        android:layout_width="297dp"
+        android:layout_height="221dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/ajouter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateExpiration" />
+
+    <TextView
+        android:id="@+id/dateExpiration"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="18dp"
+        android:text="@string/date_de_expiration"
+        app:layout_constraintBottom_toTopOf="@+id/ca_expiration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText4"
+        app:layout_constraintVertical_bias="0.204" />
+</android.support.constraint.ConstraintLayout>

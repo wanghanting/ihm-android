@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/ajouter"
+        android:src="@drawable/add"
+        app:srcCompat="@drawable/add" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nom_de_aliment"
+        android:textSize="20sp" />
+</LinearLayout>
