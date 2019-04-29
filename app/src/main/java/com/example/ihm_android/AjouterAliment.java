@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AjouterAliment extends AppCompatActivity {
     //private View view;
@@ -58,7 +60,12 @@ public class AjouterAliment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String nom = nomAliment.getText().toString();
-                String dateExpi = dateExpiration.getText().toString();
+                Date dateExpi = null;
+                try {
+                    dateExpi = Data.df.parse(dateExpiration.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 Aliment newAli = new Aliment(nom,dateExpi);
                 Intent intent = new Intent();
                 intent.setClass(AjouterAliment.this,MainActivity.class);
