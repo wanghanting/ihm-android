@@ -1,5 +1,7 @@
 package com.example.ihm_android;
 
+import android.app.Application;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,39 +10,53 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Data {
+public class Data extends Application {
     ArrayList<Aliment> aliment_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    @Override
+    public void onCreate() {
 
-    public Data() throws ParseException {
-        initalAlimentList();
-        initialFoodList();
+        try {
+            initialAlimentList();
+            initialFoodList();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        super.onCreate();
     }
 
-    void initalAlimentList () throws ParseException {
+
+    void initialAlimentList () throws ParseException {
 
         Date date1 = df.parse("2019-05-20");
-        aliment_list.add(new Aliment("apple",date1));
-        aliment_list.add(new Aliment("pear",date1));
-        aliment_list.add(new Aliment("orange",date1));
+        this.aliment_list.add(new Aliment("apple",date1,3,"un"));
+        this.aliment_list.add(new Aliment("pear",date1,3,"un"));
+        this.aliment_list.add(new Aliment("orange",date1,3,"un"));
     }
 
-    ArrayList<Map<String,Object>> initialFoodList (){
+    void initialFoodList (){
 
         for (int i = 0; i < this.aliment_list.size(); i++) {
+            Aliment food = this.aliment_list.get(i);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("image", R.drawable.add);
-            map.put("aliment", aliment_list.get(i).getNom()+" "+df.format(aliment_list.get(i).getExpirationDate()));
+            map.put("aliment", food.getNom()+" "+df.format(food.getExpirationDate())+" "+food.getQuantite()+food.getUnite());
             map.put("suprimer", R.drawable.cross);
-            food_list.add(map);
+            this.food_list.add(map);
         }
-        return this.food_list;
     }
+    ArrayList<Map<String,Object>> getFood_list(){ return this.food_list;}
 
 
     void addFood(Aliment aliment){
-        aliment_list.add(aliment);
+        this.aliment_list.add(aliment);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("image", R.drawable.add);
+        map.put("aliment", aliment.getNom()+" "+df.format(aliment.getExpirationDate())+" "+aliment.getQuantite()+aliment.getUnite() );
+        map.put("suprimer", R.drawable.cross);
+        this.food_list.add(map);
+
 
     }
 }

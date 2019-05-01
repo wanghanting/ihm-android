@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button ajouterButton;
     private Button supprimerButton;
     private ListView listView;
-    Data data= new Data();
+
 
     public MainActivity() throws ParseException {
     }
@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    data.food_list.remove((int)v.getTag());
+                    Data data= (Data)getApplication();
+                    data.getFood_list().remove((int)v.getTag());
                     notifyDataSetChanged();
                 }
             });
@@ -57,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextMessage = (TextView) findViewById(R.id.message);
-
+        Data data1= (Data)getApplication();
         listView = (ListView)findViewById(R.id.list_food) ;
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,this.data.food_list,R.layout.list_item,new String[] {"image", "aliment","suprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.supprimer});
+        MySimpleAdapter adapter = new MySimpleAdapter(this,data1.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","suprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.supprimer});
 
 
         listView.setAdapter(adapter);
