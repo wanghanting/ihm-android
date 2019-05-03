@@ -7,4 +7,7 @@
     <string name="quantite">quantite</string>
     <string name="date_de_expiration">%1$s-%2$s-%3$s</string>
     <string name="ajouter">ajouter</string>
+    <string name="phone">telephone</string>
+    <string name="contenu">SMS contenu</string>
+    <string name="send">SMS envoyer</string>
 </resources>
