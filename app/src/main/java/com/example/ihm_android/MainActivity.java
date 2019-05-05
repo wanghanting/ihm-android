@@ -5,12 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private TextView mTextMessage;
     private Button ajouterButton;
-    private Button supprimerButton;
     private ListView listView;
 
 
@@ -33,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
 
-            Button btn=(Button) v.findViewById(R.id.supprimer);
-            btn.setTag(position);
-            btn.setOnClickListener(new View.OnClickListener() {
+            Button supprimerButton=(Button) v.findViewById(R.id.supprimer);
+            supprimerButton.setTag(position);
+            supprimerButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -44,6 +48,39 @@ public class MainActivity extends AppCompatActivity {
                     notifyDataSetChanged();
                 }
             });
+
+            final EditText num = (EditText) v.findViewById(R.id.numCurrent);
+            num.setTag(position);
+            num.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    int i = (int) v.getTag();
+                    Toast toast = Toast.makeText(MainActivity.this,"you click" +i + "st item",Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                    num.requestFocus();
+                    num.findFocus();
+                    num.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count,int after) {
+                        }
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable edit) {
+                            Data data = (Data) getApplication();
+                            data.getAliment_list().get((int)v.getTag()).setQuantite(Integer.parseInt(num.getText().toString()));
+                            Toast toast1 =Toast.makeText(MainActivity.this,"you click" +v.getTag() + "st item"+data.getAliment_list().get((int)v.getTag()).getQuantite(),Toast.LENGTH_SHORT);
+                            toast1.setGravity(Gravity.CENTER, 0, 0);
+                            toast1.show();
+                        }
+
+                    });
+
+                }
+            });
+
             return v;
         }
 
@@ -61,16 +98,12 @@ public class MainActivity extends AppCompatActivity {
         Data data1= (Data)getApplication();
         listView = (ListView)findViewById(R.id.list_food) ;
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,data1.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","suprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.supprimer});
-
-
+        MySimpleAdapter adapter = new MySimpleAdapter(this,data1.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listView.setAdapter(adapter);
-        int numId;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            //list点击事件
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this,"你点击了第" + position + "项",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"you click" + position + "st item",Toast.LENGTH_SHORT).show();
             }
         });
 
