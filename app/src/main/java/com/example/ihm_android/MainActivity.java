@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private Context mContext;
-    private TextView mTextMessage;
+    private TextView mTextMessage, tvConnexionLink;
     private Button ajouterButton;
     private ListView listView;
 
@@ -117,6 +117,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tvConnexionLink = (TextView) findViewById(R.id.tvConnexionLink);
+        tvConnexionLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, Login.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
