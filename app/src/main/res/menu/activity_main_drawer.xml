@@ -5,19 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_profil"
             android:icon="@drawable/ic_menu_camera"
             android:title="Mon profil" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_type"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Type d'aliments" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_follower"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Followers" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_consommation"
             android:icon="@drawable/ic_menu_manage"
             android:title="Consommation" />
     </group>
