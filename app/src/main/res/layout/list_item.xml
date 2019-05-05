@@ -34,6 +34,7 @@
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
         android:text="@string/num"
+        android:focusable="false"
         />
 
     <TextView

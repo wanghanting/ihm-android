@@ -36,7 +36,7 @@ public class Data extends Application {
     }
 
     void initialFoodList (){
-
+        this.getFood_list().clear();
         for (int i = 0; i < this.aliment_list.size(); i++) {
             Aliment food = this.aliment_list.get(i);
             Map<String, Object> map = new HashMap<String, Object>();

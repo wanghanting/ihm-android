@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
 
 
+
+
     public MainActivity() throws ParseException {
     }
     private class MySimpleAdapter extends SimpleAdapter {
@@ -54,12 +56,11 @@ public class MainActivity extends AppCompatActivity {
             num.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    int i = (int) v.getTag();
-                    Toast toast = Toast.makeText(MainActivity.this,"you click" +i + "st item",Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                    num.setFocusable(true);
+                    num.setFocusableInTouchMode(true);
                     num.requestFocus();
                     num.findFocus();
+                    int i = (int) v.getTag();
                     num.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count,int after) {
@@ -71,9 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         public void afterTextChanged(Editable edit) {
                             Data data = (Data) getApplication();
                             data.getAliment_list().get((int)v.getTag()).setQuantite(Integer.parseInt(num.getText().toString()));
-                            Toast toast1 =Toast.makeText(MainActivity.this,"you click" +v.getTag() + "st item"+data.getAliment_list().get((int)v.getTag()).getQuantite(),Toast.LENGTH_SHORT);
-                            toast1.setGravity(Gravity.CENTER, 0, 0);
-                            toast1.show();
+                            data.initialFoodList();
                         }
 
                     });
@@ -95,10 +94,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextMessage = (TextView) findViewById(R.id.message);
-        Data data1= (Data)getApplication();
+        Data data= (Data)getApplication();
         listView = (ListView)findViewById(R.id.list_food) ;
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,data1.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.numCurrent,R.id.unite,R.id.supprimer});
+        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
