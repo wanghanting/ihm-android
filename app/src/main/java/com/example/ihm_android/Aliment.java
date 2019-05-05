@@ -1,7 +1,5 @@
 package com.example.ihm_android;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Aliment {
@@ -20,4 +18,5 @@ public class Aliment {
     Date getExpirationDate(){return this.expirationDate;}
     int getQuantite(){return this.quantite;}
     String getUnite(){return this.unite;}
+    void setQuantite(int q) {this.quantite=q;}
 }
