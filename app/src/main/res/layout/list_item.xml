@@ -2,29 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/list_item"
-    android:layout_width="match_parent"
+    android:layout_width="320dp"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_height="match_parent"
         android:contentDescription="@string/ajouter"
         android:src="@drawable/add"
         app:srcCompat="@drawable/add" />
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="@string/nom_de_aliment"
         android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/numCurrent"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="@string/num"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:text="@string/num"
+        android:focusable="false"
+        />
+
+    <TextView
+        android:id="@+id/unite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/supprimer"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:background="@drawable/cross" />
+        android:background="@drawable/cross"
+        android:focusable="false"/>
+
 </LinearLayout>

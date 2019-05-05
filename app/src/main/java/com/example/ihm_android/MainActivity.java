@@ -11,6 +11,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +21,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +34,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Context mContext;
-    private TextView mTextMessage;
+    private TextView mTextMessage, tvConnexionLink;
     private Button ajouterButton;
-    private Button supprimerButton;
     private ListView listView;
+
+
 
 
     public MainActivity() throws ParseException {
@@ -42,9 +48,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
 
-            Button btn=(Button) v.findViewById(R.id.supprimer);
-            btn.setTag(position);
-            btn.setOnClickListener(new View.OnClickListener() {
+            Button supprimerButton=(Button) v.findViewById(R.id.supprimer);
+            supprimerButton.setTag(position);
+            supprimerButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -70,19 +76,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
         mTextMessage = (TextView) findViewById(R.id.message);
-        Data data1= (Data)getApplication();
+        Data data= (Data)getApplication();
         listView = (ListView)findViewById(R.id.list_food) ;
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,data1.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","suprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.supprimer});
-
-
+        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listView.setAdapter(adapter);
-        int numId;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            //list点击事件
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this,"你点击了第" + position + "项",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"you click" + position + "st item",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -94,6 +96,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 intent.setClass(MainActivity.this, AjouterAliment.class);
                 startActivity(intent);
 
+            }
+        });
+
+        tvConnexionLink = (TextView) findViewById(R.id.tvConnexionLink);
+        tvConnexionLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, Login.class);
+                startActivity(intent);
             }
         });
 

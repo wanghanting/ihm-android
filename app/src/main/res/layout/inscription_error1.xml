@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="90dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="70dp">
+
+            <Button
+                android:id="@+id/but_authen"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="165dp"
+                android:layout_height="58dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginEnd="160dp"
+                android:layout_marginBottom="108dp"
+                android:text="Connectez-vous"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/Txt_password"
+                android:layout_width="234dp"
+                android:layout_height="41dp"
+                android:ems="10"
+                android:inputType="numberPassword"
+                tools:layout_editor_absoluteX="103dp"
+                tools:layout_editor_absoluteY="447dp" />
+
+            <EditText
+                android:id="@+id/Txt_username"
+                android:layout_width="230dp"
+                android:layout_height="44dp"
+                android:ems="10"
+                android:inputType="number"
+                tools:layout_editor_absoluteX="102dp"
+                tools:layout_editor_absoluteY="314dp" />
+
+            <CheckedTextView
+                android:id="@+id/checkedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:text="username"
+                tools:layout_editor_absoluteX="102dp"
+                tools:layout_editor_absoluteY="263dp" />
+
+            <CheckedTextView
+                android:id="@+id/checkedTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:text="password"
+                tools:layout_editor_absoluteX="103dp"
+                tools:layout_editor_absoluteY="396dp" />
+
+            <view
+                class="android.support.v7.widget.AppCompatTextView"
+                id="@+id/view"
+                android:layout_width="315dp"
+                android:layout_height="77dp"
+                android:text="Vous êtes déjà inscrit, veuillez vous connecter directement"
+                tools:layout_editor_absoluteX="65dp"
+                tools:layout_editor_absoluteY="99dp" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
