@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <Button
             android:id="@+id/but_inscription"
@@ -80,6 +80,15 @@
             android:text="Verifier votre password"
             tools:layout_editor_absoluteX="94dp"
             tools:layout_editor_absoluteY="438dp" />
+
+        <view
+            class="android.support.v7.widget.AppCompatTextView"
+            id="@+id/view"
+            android:layout_width="315dp"
+            android:layout_height="77dp"
+            android:text="!!!Le mot de passe que vous avez entré deux fois est incohérent, veuillez le saisir à nouveau."
+            tools:layout_editor_absoluteX="65dp"
+            tools:layout_editor_absoluteY="99dp" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
