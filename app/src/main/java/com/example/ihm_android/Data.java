@@ -13,6 +13,7 @@ import java.util.Map;
 public class Data extends Application {
     ArrayList<Aliment> aliment_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
+    ArrayList<Type> type_list = new ArrayList<>();
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     public void onCreate() {
@@ -48,8 +49,16 @@ public class Data extends Application {
             this.food_list.add(map);
         }
     }
+
+    void initalTypeList (){
+        this.type_list.add(new Type("fruit"));
+        this.type_list.add(new Type("légume"));
+        this.type_list.add(new Type("boisson"));
+    }
+
     ArrayList<Map<String,Object>> getFood_list(){ return this.food_list;}
     ArrayList<Aliment> getAliment_list(){ return this.aliment_list;}
+    ArrayList<Type> getType_list(){return this.type_list;}
 
 
     void addFood(Aliment aliment){
