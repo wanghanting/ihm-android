@@ -14,6 +14,7 @@ public class Data extends Application {
     ArrayList<Aliment> aliment_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    int flagnum;
     @Override
     public void onCreate() {
 
@@ -59,9 +60,8 @@ public class Data extends Application {
         map.put("aliment", aliment.getNom()+"  "+df.format(aliment.getExpirationDate()) );
         map.put("num",aliment.getQuantite());
         map.put("unite",aliment.getUnite());
-        map.put("suprimer", R.drawable.cross);
+        map.put("supprimer", R.drawable.cross);
         this.food_list.add(map);
-
-
     }
+    void setFlagnum(int flag){this.flagnum=flag;}
 }

@@ -24,6 +24,9 @@
         <activity
             android:name=".AjouterAliment"
             android:label="Ajouter" />
+        <activity
+            android:name=".ChangerAliment"
+            android:label="Ajouter" />
     </application>
 
 </manifest>

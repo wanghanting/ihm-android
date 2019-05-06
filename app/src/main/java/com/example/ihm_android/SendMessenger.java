@@ -1,8 +1,6 @@
 package com.example.ihm_android;
 
 import android.Manifest;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
