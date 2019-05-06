@@ -97,7 +97,7 @@ public class AjouterAliment extends AppCompatActivity {
                 }
                 int number = Integer.parseInt(quantite.getText().toString());
                 String uni = spinnerUnite.getSelectedItem().toString();
-                Aliment newAli = new Aliment(nom,dateExpi,number,uni);
+                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add);
                 data.addFood(newAli);
                 Intent intent = new Intent();
                 intent.setClass(AjouterAliment.this,MainActivity.class);

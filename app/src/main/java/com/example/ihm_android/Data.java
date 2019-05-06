@@ -32,9 +32,9 @@ public class Data extends Application {
     void initialAlimentList () throws ParseException {
 
         Date date1 = df.parse("2019-05-20");
-        this.aliment_list.add(new Aliment("apple",date1,3,"un"));
-        this.aliment_list.add(new Aliment("pear",date1,5,"un"));
-        this.aliment_list.add(new Aliment("orange",date1,8,"un"));
+        this.aliment_list.add(new Aliment("apple",date1,3,"un", R.drawable.apple));
+        this.aliment_list.add(new Aliment("pear",date1,5,"un",R.drawable.pear));
+        this.aliment_list.add(new Aliment("orange",date1,8,"un",R.drawable.orange));
     }
 
     void initialFoodList (){
@@ -42,7 +42,7 @@ public class Data extends Application {
         for (int i = 0; i < this.aliment_list.size(); i++) {
             Aliment food = this.aliment_list.get(i);
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put("image", R.drawable.add);
+            map.put("image", food.getImgPath());
             map.put("aliment", food.getNom()+"  "+df.format(food.getExpirationDate()));
             map.put("num",food.getQuantite());
             map.put("unite",food.getUnite());
@@ -69,7 +69,7 @@ public class Data extends Application {
         map.put("aliment", aliment.getNom()+"  "+df.format(aliment.getExpirationDate()) );
         map.put("num",aliment.getQuantite());
         map.put("unite",aliment.getUnite());
-        map.put("supprimer", R.drawable.cross);
+        map.put("supprimer", aliment.getImgPath());
         this.food_list.add(map);
     }
     void setFlagnum(int flag){this.flagnum=flag;}

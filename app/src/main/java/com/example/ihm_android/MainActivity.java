@@ -2,6 +2,7 @@ package com.example.ihm_android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -36,12 +38,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView mTextMessage, tvConnexionLink;
     private Button ajouterButton;
     private ListView listViewAliment;
-
-
-
-
-    public MainActivity() throws ParseException {
-    }
     private class MySimpleAdapter extends SimpleAdapter {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -56,6 +52,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Data data= (Data)getApplication();
                     data.getFood_list().remove((int)v.getTag());
                     notifyDataSetChanged();
+                }
+            });
+            TextView info = (TextView)v.findViewById(R.id.aliInfo);
+            info.setTag(position);
+            info.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Data data = (Data)getApplication();
+                    data.setFlagnum(Integer.parseInt(v.getTag().toString()));
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, ChangerAliment.class);
+                    startActivity(intent);
                 }
             });
             final EditText num = (EditText) v.findViewById(R.id.numCurrent);
@@ -98,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
         setContentView(R.layout.page_d_accueil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -106,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Data data= (Data)getApplication();
         listViewAliment = (ListView)findViewById(R.id.list_food) ;
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imageView1,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
+        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listViewAliment.setAdapter(adapter);
         listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
