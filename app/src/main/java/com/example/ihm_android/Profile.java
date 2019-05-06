@@ -24,6 +24,19 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         etLongDescription = (EditText) findViewById(R.id.etLongDescription);
 
         bHome.setOnClickListener(this);
+
+
+//        bHome.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View source)
+//            {
+//                //获取启动前Activity的上一个Intent
+//                Intent intent = new Intent(Profile.this,MainActivity.class);
+//                //启动intent对应的Activity
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
 
     @Override

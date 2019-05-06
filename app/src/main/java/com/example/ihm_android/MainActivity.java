@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        setContentView(R.layout.activity_main);
         setContentView(R.layout.page_d_accueil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         mTextMessage = (TextView) findViewById(R.id.message);
         Data data= (Data)getApplication();
         listView = (ListView)findViewById(R.id.list_food) ;
@@ -163,18 +163,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profil) {
-            // Handle the camera action
-        } else if (id == R.id.nav_type) {
-
-        } else if (id == R.id.nav_follower) {
-
-        } else if (id == R.id.nav_consommation) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id){
+            case R.id.nav_profil:
+                startActivity(new Intent(this,Profile.class));
+                break;
+            case R.id.nav_type:
+                break;
+            case R.id.nav_follower:
+                break;
+            case R.id.nav_consommation:
+                break;
+            case R.id.nav_share:
+                break;
+            case  R.id.nav_send:
+                startActivity(new Intent(this,SendMessenger.class));
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
