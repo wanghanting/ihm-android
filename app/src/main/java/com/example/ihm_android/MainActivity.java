@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Context mContext;
     private TextView mTextMessage, tvConnexionLink;
     private Button ajouterButton;
-    private ListView listView;
+    private ListView listViewAliment;
 
 
 
@@ -56,19 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Data data= (Data)getApplication();
                     data.getFood_list().remove((int)v.getTag());
                     notifyDataSetChanged();
-                }
-            });
-            TextView info = (TextView)v.findViewById(R.id.aliInfo);
-            info.setTag(position);
-            info.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Data data = (Data)getApplication();
-                    data.setFlagnum(Integer.parseInt(v.getTag().toString()));
-                    Intent intent = new Intent();
-                    intent.setClass(MainActivity.this, ChangerAliment.class);
-                    startActivity(intent);
                 }
             });
             final EditText num = (EditText) v.findViewById(R.id.numCurrent);
@@ -117,8 +104,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         mTextMessage = (TextView) findViewById(R.id.message);
         Data data= (Data)getApplication();
-        listView = (ListView)findViewById(R.id.list_food) ;
+        listViewAliment = (ListView)findViewById(R.id.list_food) ;
 
+        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imageView1,R.id.textView1,R.id.numCurrent,R.id.unite,R.id.supprimer});
+        listViewAliment.setAdapter(adapter);
+        listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
         MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imageView1,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
