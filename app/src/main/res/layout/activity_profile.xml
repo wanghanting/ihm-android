@@ -12,9 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="30dp"
         android:text="Mon Profil"
         android:textSize="30dp"
+        android:textColor="#2979ff"
         android:textStyle="bold" />
 
     <TextView

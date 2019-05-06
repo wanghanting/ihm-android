@@ -9,6 +9,16 @@
     tools:context=".Register">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"
+        android:text="Création d'un compte"
+        android:textSize="30dp"
+        android:textColor="#2979ff"
+        android:textStyle="bold" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nom d'utilisateur" />
@@ -51,14 +61,20 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:text="S'enregistrer"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp" />
 
     <TextView
         android:id="@+id/tvLoginLink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:text="Se connecter"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:src="@drawable/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -11,9 +11,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
     Button bHome;
     EditText etLastName, etFirstName, etShortDescription, etLongDescription;
-    User user;
-    String username;
-    String password;
     Data data;
 
 
@@ -32,8 +29,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
         bHome.setOnClickListener(this);
 
-        etFirstName.setText(data.user.getUsername());
-        etShortDescription.setText(data.user.getPassword());
+        displayUserDetails(data.user);
     }
 
     @Override
@@ -47,5 +43,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                 startActivity(new Intent(this, MainActivity.class));
                 break;
         }
+    }
+
+    void displayUserDetails(User user){
+        etLastName.setText(user.getLastName());
+        etFirstName.setText(user.getFirstName());
+        etShortDescription.setText(user.getSmallDescription());
+        etLongDescription.setText(user.getLongDescription());
     }
 }
