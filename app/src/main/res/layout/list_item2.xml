@@ -1,53 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/list_item"
-    android:layout_width="320dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_item2"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="horizontal"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imaAliment"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:contentDescription="@string/ajouter"
         android:src="@drawable/add"
         app:srcCompat="@drawable/add" />
 
     <TextView
         android:id="@+id/aliInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:text="@string/nom_de_aliment"
         android:textSize="20sp" />
 
     <EditText
         android:id="@+id/numCurrent"
-        android:layout_width="20dp"
+        android:layout_width="35dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:ems="10"
+        android:focusable="false"
         android:hint="@string/num"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"
-        android:text="@string/num"
-        android:focusable="false"
-        />
+        android:text="@string/num" />
 
     <TextView
         android:id="@+id/unite"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/supprimer"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@drawable/cross"
-        android:focusable="false"/>
+        android:freezesText="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="0sp" />
 
 </LinearLayout>

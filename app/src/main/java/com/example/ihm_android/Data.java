@@ -44,10 +44,10 @@ public class Data extends Application {
             Aliment food = this.aliment_list.get(i);
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("image", food.getImgPath());
-            map.put("aliment", food.getNom()+"  "+df.format(food.getExpirationDate()));
+            map.put("aliment", food.getNom()+"  \n"+df.format(food.getExpirationDate()));
             map.put("num",food.getQuantite());
             map.put("unite",food.getUnite());
-            map.put("supprimer", R.drawable.cross);
+            map.put("supprimer",R.drawable.cross);
             this.food_list.add(map);
         }
     }
@@ -67,11 +67,11 @@ public class Data extends Application {
     void addFood(Aliment aliment){
         this.aliment_list.add(aliment);
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("image", R.drawable.add);
-        map.put("aliment", aliment.getNom()+"  "+df.format(aliment.getExpirationDate()) );
+        map.put("image", aliment.getImgPath());
+        map.put("aliment", aliment.getNom()+"  \n"+df.format(aliment.getExpirationDate()) );
         map.put("num",aliment.getQuantite());
         map.put("unite",aliment.getUnite());
-        map.put("supprimer", aliment.getImgPath());
+        map.put("supprimer", R.drawable.cross);
         this.food_list.add(map);
     }
     void setFlagnum(int flag){this.flagnum=flag;}

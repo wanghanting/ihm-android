@@ -11,6 +11,7 @@
     <string name="contenu">SMS contenu</string>
     <string name="send">SMS envoyer</string>
     <string name="num">0</string>
+    <string name="none"> </string>
     <string name="action_settings">Action Settings</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

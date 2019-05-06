@@ -2,7 +2,6 @@ package com.example.ihm_android;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     num.setFocusableInTouchMode(true);
                     num.requestFocus();
                     num.findFocus();
-                    int i = (int) v.getTag();
+                    //int i = (int) v.getTag();
                     num.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Data data= (Data)getApplication();
         listViewAliment = (ListView)findViewById(R.id.list_food) ;
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
+        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listViewAliment.setAdapter(adapter);
         listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
