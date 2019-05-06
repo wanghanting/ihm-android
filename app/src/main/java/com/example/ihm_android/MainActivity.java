@@ -12,12 +12,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -52,6 +56,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Data data= (Data)getApplication();
                     data.getFood_list().remove((int)v.getTag());
                     notifyDataSetChanged();
+                }
+            });
+            final EditText num = (EditText) v.findViewById(R.id.numCurrent);
+            num.setTag(position);
+            num.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    num.setFocusable(true);
+                    num.setFocusableInTouchMode(true);
+                    num.requestFocus();
+                    num.findFocus();
+                    int i = (int) v.getTag();
+                    num.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+
+                        public void afterTextChanged(Editable edit) {
+                            Data data = (Data) getApplication();
+                            data.getAliment_list().get((int) v.getTag()).setQuantite(Integer.parseInt(num.getText().toString()));
+                            data.initialFoodList();
+                        }
+                    });
+
                 }
             });
             return v;
