@@ -15,6 +15,11 @@ public class User {
     User(String username,String password){
         this.username = username;
         this.password = password;
+        this.lastName = "";
+        this.firstName = "";
+        this.smallDescription = "";
+        this.longDescription = "";
+
     }
 
     public void setLastName(String lastName){this.lastName = lastName;}

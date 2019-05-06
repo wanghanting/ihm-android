@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Context mContext;
-    private TextView mTextMessage, tvConnexionLink;
+    private TextView mTextMessage, tvDeconnexionLink;
     private Button ajouterButton;
     private ListView listViewAliment;
     private class MySimpleAdapter extends SimpleAdapter {
@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        tvConnexionLink = (TextView) findViewById(R.id.tvConnexionLink);
-        tvConnexionLink.setOnClickListener(new View.OnClickListener() {
+        tvDeconnexionLink = (TextView) findViewById(R.id.tvDeconnexionLink);
+        tvDeconnexionLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();

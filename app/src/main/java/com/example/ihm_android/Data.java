@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Data extends Application {
+    User user;
     ArrayList<Aliment> aliment_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
     ArrayList<Type> type_list = new ArrayList<>();
@@ -61,6 +62,7 @@ public class Data extends Application {
     ArrayList<Aliment> getAliment_list(){ return this.aliment_list;}
     ArrayList<Type> getType_list(){return this.type_list;}
 
+    User getUser(){return user;}
 
     void addFood(Aliment aliment){
         this.aliment_list.add(aliment);

@@ -18,12 +18,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvConnexionLink"
+        android:id="@+id/tvDeconnexionLink"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
-        android:text="Connexion"
+        android:text="Déconnexion"
         android:textColor="#304ffe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

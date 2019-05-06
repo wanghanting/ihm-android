@@ -11,6 +11,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Bienvenu sur StopAuGaspillage"
+        android:textStyle="bold"
+        android:textColor="#2979ff"
+        android:textSize="30dp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:id="@+id/tvLoginError"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#d50000"
+        android:textSize="15dp"
+        android:gravity="center_horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Nom d'utilisateur" />
 
     <EditText
