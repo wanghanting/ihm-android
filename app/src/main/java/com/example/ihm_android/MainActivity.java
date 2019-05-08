@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView mTextMessage, tvDeconnexionLink, tvListeAlimentLink;
     private Button ajouterButton;
     private ListView listViewAliment;
+    private ListView listViewType;
+
     private class MySimpleAdapter extends SimpleAdapter {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -108,6 +110,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    private class TypeAdapter extends SimpleAdapter {
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View v = super.getView(position, convertView, parent);
+            TextView button_name = (TextView) v.findViewById(R.id.type);
+            button_name.setTag(position);
+            button_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Data data = (Data)getApplication();
+                    data.setFlagnum(Integer.parseInt(v.getTag().toString()));
+                }
+            });
+            return v;
+        }
+        public TypeAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
+            super(context, data, resource, from, to);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +143,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listViewAliment.setAdapter(adapter);
         listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this,"you click" + position + "st item",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        listViewType = (ListView)findViewById(R.id.list_type);
+        TypeAdapter adapter_type = new TypeAdapter(this,data.getButton_list(),R.layout.list_button,new String[] {"nom"}, new int[] {R.id.type});
+        listViewType.setAdapter(adapter_type);
+        listViewType.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(MainActivity.this,"you click" + position + "st item",Toast.LENGTH_SHORT).show();

@@ -13,8 +13,9 @@ import java.util.Map;
 public class Data extends Application {
     User user;
     ArrayList<Aliment> aliment_list = new ArrayList<>();
-    ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
     ArrayList<Type> type_list = new ArrayList<>();
+    ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
+    ArrayList<Map<String, Object>> button_list = new ArrayList<>();
     ArrayList<String> type_aliment_name = new ArrayList<>();
     ArrayList<Integer> type_aliment_picture = new ArrayList<>();
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -26,6 +27,8 @@ public class Data extends Application {
         try {
             initialAlimentList();
             initialFoodList();
+            initialTypeList();
+            initialButtonList();
             init_type_aliment_name();
             init_type_aliment_picture();
         } catch (ParseException e) {
@@ -76,14 +79,28 @@ public class Data extends Application {
         }
     }
 
-    void initalTypeList (){
+    void initialTypeList () throws ParseException {
         this.type_list.add(new Type("fruit"));
         this.type_list.add(new Type("légume"));
         this.type_list.add(new Type("boisson"));
     }
 
+
+    void initialButtonList (){
+        this.getButton_list().clear();
+        for (int i = 0; i < this.type_list.size(); i++) {
+            Type type = this.type_list.get(i);
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("nom", type.getNom());
+            this.button_list.add(map);
+        }
+    }
+
+
+
     ArrayList<Map<String,Object>> getFood_list(){ return this.food_list;}
     ArrayList<Aliment> getAliment_list(){ return this.aliment_list;}
+    ArrayList<Map<String,Object>> getButton_list(){return this.button_list;}
     ArrayList<Type> getType_list(){return this.type_list;}
 
     User getUser(){return user;}
