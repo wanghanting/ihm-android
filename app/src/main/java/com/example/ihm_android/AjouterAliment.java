@@ -33,7 +33,7 @@ public class AjouterAliment extends AppCompatActivity {
     private TextView dateExpiration;
     private String date;
 //    public static final String CHANNEL_ID = "channelFred";
-    public static final int NOTIFICATION_ID = 88888;
+    public static final int NOTIFICATION_SUCCESS_ID = 88888;
 
 
 
@@ -54,8 +54,9 @@ public class AjouterAliment extends AppCompatActivity {
         final NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
 
+        String aliment = nomAliment.getText().toString();
         mBuilder.setContentTitle("Ajouté")
-                .setContentText("Ajouté avec succès")
+                .setContentText("Ajouté avec succès!")
                 .setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
                 .setTicker("Here comes the news!")
                 .setWhen(System.currentTimeMillis())
@@ -121,7 +122,7 @@ public class AjouterAliment extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(AjouterAliment.this,MainActivity.class);
                 startActivity(intent);
-                mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+                mNotificationManager.notify(NOTIFICATION_SUCCESS_ID, mBuilder.build());
 
             }
         });
