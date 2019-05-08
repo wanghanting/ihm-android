@@ -1,8 +1,12 @@
 package com.example.ihm_android;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -28,6 +32,8 @@ public class AjouterAliment extends AppCompatActivity {
     private Spinner spinnerUnite;
     private TextView dateExpiration;
     private String date;
+//    public static final String CHANNEL_ID = "channelFred";
+    public static final int NOTIFICATION_ID = 88888;
 
 
 
@@ -44,6 +50,19 @@ public class AjouterAliment extends AppCompatActivity {
         expiration = (CalendarView) findViewById(R.id.ca_expiration);
         dateExpiration = (TextView) findViewById(R.id.dateExpiration);
         ajouterButton=(Button) findViewById(R.id.ajouter);
+
+        final NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+
+        mBuilder.setContentTitle("Ajouté")
+                .setContentText("Ajouté avec succès")
+                .setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
+                .setTicker("Here comes the news!")
+                .setWhen(System.currentTimeMillis())
+                .setPriority(Notification.PRIORITY_MAX)
+                .setOngoing(false)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp);
 
 
         final String[] arr={"g","kg","package","unite"};
@@ -102,9 +121,15 @@ public class AjouterAliment extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(AjouterAliment.this,MainActivity.class);
                 startActivity(intent);
+                mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 
             }
         });
+    }
+
+    public PendingIntent getDefalutIntent(int flags){
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, new Intent(), flags);
+        return pendingIntent;
     }
 }
 
