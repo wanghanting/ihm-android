@@ -48,6 +48,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
 
+//            final NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//            final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
+//
+//            mBuilder.setContentTitle("Suppression")
+//                    .setContentText("Suppression avec succès")
+//                    .setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
+//                    .setTicker("Here comes the news!")
+//                    .setWhen(System.currentTimeMillis())
+//                    .setPriority(Notification.PRIORITY_MAX)
+//                    .setOngoing(false)
+//                    .setDefaults(Notification.DEFAULT_VIBRATE)
+//                    .setSmallIcon(R.drawable.ic_notifications_black_24dp);
+
             Button supprimerButton=(Button) v.findViewById(R.id.supprimer);
             supprimerButton.setTag(position);
             supprimerButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Data data= (Data)getApplication();
                     data.getFood_list().remove((int)v.getTag());
                     notifyDataSetChanged();
+//                    mNotificationManager.notify(2, mBuilder.build());
                 }
             });
             TextView info = (TextView)v.findViewById(R.id.aliInfo);
@@ -119,6 +133,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Data data= (Data)getApplication();
         listViewAliment = (ListView)findViewById(R.id.list_food) ;
 
+        final NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+
+        mBuilder.setContentTitle("Création")
+                .setContentText("Rempli le tableau dessous")
+                .setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
+                .setTicker("Here comes the news!")
+                .setWhen(System.currentTimeMillis())
+                .setPriority(Notification.PRIORITY_MAX)
+                .setOngoing(false)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp);
+
         MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listViewAliment.setAdapter(adapter);
         listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -135,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent();
                 intent.setClass(MainActivity.this, AjouterAliment.class);
                 startActivity(intent);
-
+                mNotificationManager.notify(1, mBuilder.build());
             }
         });
 
@@ -240,7 +267,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
+    public PendingIntent getDefalutIntent(int flags){
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, new Intent(), flags);
+        return pendingIntent;
+    }
 
 
 }

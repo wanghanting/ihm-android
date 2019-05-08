@@ -77,6 +77,17 @@
         app:layout_constraintEnd_toStartOf="@+id/tvDeconnexionLink"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--<com.twitter.sdk.android.core.identity.TwitterLoginButton-->
+        <!--android:id="@+id/login_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.335"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/message"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="0.745" />-->
+
     <!--<Spinner-->
         <!--android:id="@+id/spinner"-->
         <!--android:layout_width="395dp"-->

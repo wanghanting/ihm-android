@@ -54,13 +54,12 @@ public class AjouterAliment extends AppCompatActivity {
         final NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
 
-        String aliment = nomAliment.getText().toString();
         mBuilder.setContentTitle("Ajouté")
                 .setContentText("Ajouté avec succès!")
                 .setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
                 .setTicker("Here comes the news!")
                 .setWhen(System.currentTimeMillis())
-                .setPriority(Notification.PRIORITY_MAX)
+                .setPriority(Notification.PRIORITY_DEFAULT)
                 .setOngoing(false)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp);
