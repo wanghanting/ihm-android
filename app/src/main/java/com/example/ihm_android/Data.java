@@ -15,20 +15,44 @@ public class Data extends Application {
     ArrayList<Aliment> aliment_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
     ArrayList<Type> type_list = new ArrayList<>();
+    ArrayList<String> type_aliment_name = new ArrayList<>();
+    ArrayList<Integer> type_aliment_picture = new ArrayList<>();
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     int flagnum;
+
     @Override
     public void onCreate() {
 
         try {
             initialAlimentList();
             initialFoodList();
+            init_type_aliment_name();
+            init_type_aliment_picture();
         } catch (ParseException e) {
             e.printStackTrace();
         }
         super.onCreate();
     }
 
+    void init_type_aliment_name(){
+        this.type_aliment_name.add("Fruit");
+        this.type_aliment_name.add("Légume");
+        this.type_aliment_name.add("Laitage");
+        this.type_aliment_name.add("Féculent");
+        this.type_aliment_name.add("Viande");
+        this.type_aliment_name.add("Boisson");
+        this.type_aliment_name.add("Poisson");
+    }
+
+    void init_type_aliment_picture(){
+        this.type_aliment_picture.add(R.drawable.fruit);
+        this.type_aliment_picture.add(R.drawable.legume);
+        this.type_aliment_picture.add(R.drawable.laitage);
+        this.type_aliment_picture.add(R.drawable.feculent);
+        this.type_aliment_picture.add(R.drawable.viande);
+        this.type_aliment_picture.add(R.drawable.boisson);
+        this.type_aliment_picture.add(R.drawable.poisson);
+    }
 
     void initialAlimentList () throws ParseException {
 
