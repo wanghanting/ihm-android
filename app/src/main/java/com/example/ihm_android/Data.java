@@ -16,10 +16,12 @@ public class Data extends Application {
     ArrayList<Type> type_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
     ArrayList<Map<String, Object>> button_list = new ArrayList<>();
+    ArrayList<Map<String, Object>> food_list_by_type = new ArrayList<>();
     ArrayList<String> type_aliment_name = new ArrayList<>();
     ArrayList<Integer> type_aliment_picture = new ArrayList<>();
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     int flagnum;
+    String type = "Tout";
 
     @Override
     public void onCreate() {
@@ -29,6 +31,7 @@ public class Data extends Application {
             initialFoodList();
             initialTypeList();
             initialButtonList();
+            initalFoodListByType();
             init_type_aliment_name();
             init_type_aliment_picture();
         } catch (ParseException e) {
@@ -60,9 +63,9 @@ public class Data extends Application {
     void initialAlimentList () throws ParseException {
 
         Date date1 = df.parse("2019-05-20");
-        this.aliment_list.add(new Aliment("apple",date1,3,"un", R.drawable.apple));
-        this.aliment_list.add(new Aliment("pear",date1,5,"un",R.drawable.pear));
-        this.aliment_list.add(new Aliment("orange",date1,8,"un",R.drawable.orange));
+        this.aliment_list.add(new Aliment("apple",date1,3,"un", R.drawable.apple, "fruit"));
+        this.aliment_list.add(new Aliment("pear",date1,5,"un",R.drawable.pear,"fruit"));
+        this.aliment_list.add(new Aliment("orange",date1,8,"un",R.drawable.orange,"fruit"));
     }
 
     void initialFoodList (){
@@ -101,7 +104,30 @@ public class Data extends Application {
     ArrayList<Map<String,Object>> getFood_list(){ return this.food_list;}
     ArrayList<Aliment> getAliment_list(){ return this.aliment_list;}
     ArrayList<Map<String,Object>> getButton_list(){return this.button_list;}
+    ArrayList<Map<String,Object>> getFood_list_by_type(){return this.food_list_by_type;}
     ArrayList<Type> getType_list(){return this.type_list;}
+
+    void setType (String type){this.type = type;}
+
+    void initalFoodListByType(){
+        this.getFood_list_by_type().clear();
+        if(this.type.equals("Tout"))
+            this.food_list_by_type = this.food_list;
+        else {
+            for (int i = 0; i < this.aliment_list.size(); i++) {
+                Aliment food = this.aliment_list.get(i);
+                if (food.getType().equals(this.type)) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("image", food.getImgPath());
+                    map.put("aliment", food.getNom() + "  \n" + df.format(food.getExpirationDate()));
+                    map.put("num", food.getQuantite());
+                    map.put("unite", food.getUnite());
+                    map.put("supprimer", R.drawable.cross);
+                    this.food_list_by_type.add(map);
+                }
+            }
+        }
+    }
 
     User getUser(){return user;}
 

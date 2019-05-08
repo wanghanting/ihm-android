@@ -114,13 +114,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
-            TextView button_name = (TextView) v.findViewById(R.id.type);
+            Button button_name = (Button) v.findViewById(R.id.type);
             button_name.setTag(position);
             button_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Data data = (Data)getApplication();
-                    data.setFlagnum(Integer.parseInt(v.getTag().toString()));
+                    String type = data.type_list.get(Integer.parseInt(v.getTag().toString())).getNom();
+                    System.out.println(type);
+                    data.setType(type);
+                    data.initalFoodListByType();
+                    Intent intent = new Intent();
+                    intent.setClass(data,MainActivity.class);
+                    startActivity(intent);
                 }
             });
             return v;
@@ -140,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Data data= (Data)getApplication();
         listViewAliment = (ListView)findViewById(R.id.list_food) ;
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
+        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list_by_type(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listViewAliment.setAdapter(adapter);
         listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -155,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         listViewType.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this,"you click" + position + "st item",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "you click"  + position + "st item", Toast.LENGTH_SHORT).show();
             }
         });
 
