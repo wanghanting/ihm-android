@@ -32,6 +32,7 @@ public class AjouterAliment extends AppCompatActivity {
     private Spinner spinnerUnite;
     private TextView dateExpiration;
     private String date;
+    private String type;
 //    public static final String CHANNEL_ID = "channelFred";
     public static final int NOTIFICATION_SUCCESS_ID = 88888;
 
@@ -117,7 +118,7 @@ public class AjouterAliment extends AppCompatActivity {
                 }
                 int number = Integer.parseInt(quantite.getText().toString());
                 String uni = spinnerUnite.getSelectedItem().toString();
-                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add);
+                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,"légume");
                 data.addFood(newAli);
                 Intent intent = new Intent();
                 intent.setClass(AjouterAliment.this,MainActivity.class);

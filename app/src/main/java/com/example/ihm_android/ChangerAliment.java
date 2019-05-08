@@ -103,7 +103,7 @@ public class ChangerAliment extends AppCompatActivity {
                 }
                 int number = Integer.parseInt(quantite.getText().toString());
                 String uni = spinnerUnite.getSelectedItem().toString();
-                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add);
+                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,"légume");
                 data.getAliment_list().remove(data.flagnum);
                 data.getAliment_list().add(data.flagnum, newAli);
                 data.initialFoodList();
