@@ -32,8 +32,6 @@ public class AjouterAliment extends AppCompatActivity {
     private Spinner spinnerUnite;
     private TextView dateExpiration;
     private String date;
-//    public static final String CHANNEL_ID = "channelFred";
-    public static final int NOTIFICATION_SUCCESS_ID = 88888;
 
 
 
@@ -59,7 +57,7 @@ public class AjouterAliment extends AppCompatActivity {
                 .setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
                 .setTicker("Here comes the news!")
                 .setWhen(System.currentTimeMillis())
-                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setPriority(Notification.PRIORITY_MAX)
                 .setOngoing(false)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp);
@@ -121,7 +119,7 @@ public class AjouterAliment extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(AjouterAliment.this,MainActivity.class);
                 startActivity(intent);
-                mNotificationManager.notify(NOTIFICATION_SUCCESS_ID, mBuilder.build());
+                mNotificationManager.notify(2, mBuilder.build());
 
             }
         });
