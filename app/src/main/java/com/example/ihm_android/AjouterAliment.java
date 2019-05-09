@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,9 +31,11 @@ public class AjouterAliment extends AppCompatActivity {
     private EditText nomAliment;
     private EditText quantite;
     private Spinner spinnerUnite;
+    private Spinner spinnerType;
     private TextView dateExpiration;
     private String date;
     private String type;
+    private Data data;
 //    public static final String CHANNEL_ID = "channelFred";
     public static final int NOTIFICATION_SUCCESS_ID = 88888;
 
@@ -42,12 +45,14 @@ public class AjouterAliment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajouteraliments);
+        this.data= (Data)getApplication();
 //        view =this.getLayoutInflater().inflate(R.layout.ajouteraliments,null);
 //        setContentView(view);
 
         nomAliment=(EditText) findViewById(R.id.txt_nomAliment);
         quantite=(EditText) findViewById(R.id.quantite);
         spinnerUnite = (Spinner) findViewById(R.id.spinner1);
+        spinnerType = (Spinner) findViewById(R.id.ali_type);
         expiration = (CalendarView) findViewById(R.id.ca_expiration);
         dateExpiration = (TextView) findViewById(R.id.dateExpiration);
         ajouterButton=(Button) findViewById(R.id.ajouter);
@@ -82,6 +87,21 @@ public class AjouterAliment extends AppCompatActivity {
             }
         });
 
+        final ArrayList<String> array = data.getTypes();
+        ArrayAdapter<String> adapter_type=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice,array);
+        spinnerType.setAdapter(adapter_type);
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(AjouterAliment.this, "点击了" + array.get(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH)+1;
@@ -104,11 +124,9 @@ public class AjouterAliment extends AppCompatActivity {
 
 
 
-
         ajouterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Data data= (Data)getApplication();
                 String nom = nomAliment.getText().toString();
                 Date dateExpi = null;
                 try {
@@ -118,8 +136,11 @@ public class AjouterAliment extends AppCompatActivity {
                 }
                 int number = Integer.parseInt(quantite.getText().toString());
                 String uni = spinnerUnite.getSelectedItem().toString();
-                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,"légume");
+                String type = spinnerType.getSelectedItem().toString();
+                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,type);
                 data.addFood(newAli);
+                data.setType("Tout");
+                data.initalFoodListByType();
                 Intent intent = new Intent();
                 intent.setClass(AjouterAliment.this,MainActivity.class);
                 startActivity(intent);

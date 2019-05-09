@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onClick(View v) {
                     Data data = (Data)getApplication();
                     String type = data.type_list.get(Integer.parseInt(v.getTag().toString())).getNom();
-                    System.out.println(type);
                     data.setType(type);
                     data.initalFoodListByType();
                     Intent intent = new Intent();

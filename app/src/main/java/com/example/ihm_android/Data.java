@@ -83,9 +83,11 @@ public class Data extends Application {
     }
 
     void initialTypeList () throws ParseException {
+        this.type_list.add(new Type("Tout"));
         this.type_list.add(new Type("fruit"));
         this.type_list.add(new Type("légume"));
         this.type_list.add(new Type("boisson"));
+        this.type_list.add(new Type("+"));
     }
 
 
@@ -107,12 +109,23 @@ public class Data extends Application {
     ArrayList<Map<String,Object>> getFood_list_by_type(){return this.food_list_by_type;}
     ArrayList<Type> getType_list(){return this.type_list;}
 
+    ArrayList<String> getTypes(){
+        ArrayList<String> types = new ArrayList<>();
+        for(int i = 1;i < this.type_list.size()-1;i++){
+            types.add(this.type_list.get(i).getNom());
+        }
+        return types;
+    }
+
     void setType (String type){this.type = type;}
 
     void initalFoodListByType(){
         this.getFood_list_by_type().clear();
-        if(this.type.equals("Tout"))
-            this.food_list_by_type = this.food_list;
+        if(this.type.equals("Tout")){
+            for (int i = 0; i < this.food_list.size(); i++) {
+                this.food_list_by_type.add(food_list.get(i));
+            }
+        }
         else {
             for (int i = 0; i < this.aliment_list.size(); i++) {
                 Aliment food = this.aliment_list.get(i);
@@ -127,6 +140,7 @@ public class Data extends Application {
                 }
             }
         }
+        System.out.print(food_list_by_type);
     }
 
     User getUser(){return user;}
