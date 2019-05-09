@@ -1,10 +1,12 @@
 package com.example.ihm_android;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
@@ -34,6 +36,10 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button ajouterButton;
     private ListView listViewAliment;
     private ListView listViewType;
+    private String path= "Environment.getExternalStorageDirectory()";
 
     private class MySimpleAdapter extends SimpleAdapter {
         @Override
@@ -308,5 +315,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return pendingIntent;
     }
 
+
+    @SuppressLint("path")
+    public static String saveMyBitmap(String bitName, Bitmap mBitmap) {
+        File f = new File("/sdcard/" + bitName + ".png");
+
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            System.out.println("在保存图片时出错：" + e.toString());
+        }
+        FileOutputStream fOut = null;
+        try {
+            fOut = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+        } catch (Exception e) {
+            return "create_bitmap_error";
+        }
+        try {
+            fOut.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "/sdcard/" + bitName + ".png";
+    }
+
+    public static String saveBitmapToSDCard(Bitmap bitmap, String imagename) {
+        String path = "/sdcard/" + "img-" + imagename + ".jpg";
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(path);
+            if (fos != null) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+                fos.close();
+            }
+
+            return path;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
 
 }

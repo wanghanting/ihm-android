@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DebugUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -73,9 +75,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                     case TAKE_PICTURE: // 拍照
                         Intent openCameraIntent = new Intent(
                                 MediaStore.ACTION_IMAGE_CAPTURE);
-                        tempUri = Uri.fromFile(new File(Environment
-                                .getExternalStorageDirectory(), "image.jpg"));
+                        tempUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "image.jpg"));
                         // 指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
+                        //这是SD卡路径
                         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
                         startActivityForResult(openCameraIntent, TAKE_PICTURE);
                         break;
@@ -157,14 +159,14 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
 
     private void uploadPic(Bitmap bitmap) {
 
-//        String imagePath = .savePhoto(bitmap, Environment
-//                .getExternalStorageDirectory().getAbsolutePath(), String
-//                .valueOf(System.currentTimeMillis()));
-//        Log.e("imagePath", imagePath+"");
-//        if(imagePath != null){
-//            // 拿着imagePath上传了
-//            // ...
-//        }
+        String imagePath = Utils.savePhoto(bitmap, Environment
+                .getExternalStorageDirectory().getAbsolutePath(), String
+                .valueOf(System.currentTimeMillis()));
+        Log.e("imagePath", imagePath+"");
+        if(imagePath != null){
+            // 拿着imagePath上传了
+            // ...
+        }
     }
 
 }
