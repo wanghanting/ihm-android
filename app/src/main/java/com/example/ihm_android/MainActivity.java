@@ -172,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp);
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list_by_type(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listViewAliment.setAdapter(adapter);
         listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
