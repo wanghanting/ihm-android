@@ -11,21 +11,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginBottom="30dp"
+        android:gravity="center"
         android:text="Mon Profil"
-        android:textSize="30dp"
         android:textColor="#2979ff"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:background="#ffff00"
         android:gravity="center"
         android:text="Aucun de ces champs n'est obligatoire, mais il est recommandé de les remplir pour afin que d'autres utilisateurs puissent vous identifier et vous suivre"
         android:textSize="15dp"
-        android:layout_marginBottom="20dp"
         android:textStyle="bold" />
 
     <TextView
@@ -36,7 +36,7 @@
 
     <EditText
         android:id="@+id/etLastName"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp" />
 
@@ -48,9 +48,15 @@
 
     <EditText
         android:id="@+id/etFirstName"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp" />
+
+    <ImageView
+        android:id="@+id/imageView_avatars"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,9 +88,17 @@
         android:id="@+id/bHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Page d'accueil"
-        android:textStyle="bold"
         android:background="#2979ff"
-        android:textColor="#ffffff" />
+        android:text="Page d'accueil"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_avatars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
 
 </LinearLayout>

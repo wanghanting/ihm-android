@@ -4,55 +4,51 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.support.v4.util.TimeUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.File;
 
-public class Profile extends AppCompatActivity implements View.OnClickListener{
-
+public class AjouterAvatars extends AppCompatActivity {
     protected static final int CHOOSE_PICTURE = 0;
     protected static final int TAKE_PICTURE = 1;
     private static final int CROP_SMALL_PICTURE = 2;
     protected static Uri tempUri;
-    Button bHome;
-    Button button_avatars;
-    EditText etLastName, etFirstName, etShortDescription, etLongDescription;
-    ImageView imageView_avatars;
-    Data data;
-
+    private ImageView imageView_avatars;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-
-        data = (Data) getApplication();
-
-        bHome = (Button) findViewById(R.id.bHome);
-        etLastName = (EditText) findViewById(R.id.etLastName);
-        etFirstName = (EditText) findViewById(R.id.etFirstName);
-        etShortDescription = (EditText) findViewById(R.id.etShortDescription);
-        etLongDescription = (EditText) findViewById(R.id.etLongDescription);
-        button_avatars = (Button) findViewById(R.id.button_avatars);
+        setContentView(R.layout.activity_main);
+        Button button_avatars = (Button) findViewById(R.id.button_avatars);
         imageView_avatars = (ImageView) findViewById(R.id.imageView_avatars);
+//        button_avatars.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showChoosePicDialog();
+//            }
+//        });
+//        button_avatars.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showChoosePicDialog();
+//            }
+//        } );
 
-        bHome.setOnClickListener(this);
-        button_avatars.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showChoosePicDialog();
-            }
-        });
     }
+
+    /**
+     * 显示修改头像的对话框
+     */
 
     protected void showChoosePicDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -86,27 +82,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View v){
-        switch(v.getId()){
-            case R.id.bHome:
-                data.user.setLastName(etLastName.getText().toString());
-                data.user.setFirstName(etFirstName.getText().toString());
-                data.user.setSmallDescription(etShortDescription.getText().toString());
-                data.user.setLongDescription(etLongDescription.getText().toString());
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-        }
-    }
-
-    void displayUserDetails(User user){
-        etLastName.setText(user.getLastName());
-        etFirstName.setText(user.getFirstName());
-        etShortDescription.setText(user.getSmallDescription());
-        etLongDescription.setText(user.getLongDescription());
-    }
-
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) { // 如果返回码是可以用的
@@ -126,6 +101,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param uri
+     */
     protected void startPhotoZoom(Uri uri) {
         if (uri == null) {
             Log.i("tag", "The uri is not exist.");
