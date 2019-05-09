@@ -144,7 +144,7 @@ public class AjouterAliment extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(AjouterAliment.this,MainActivity.class);
                 startActivity(intent);
-                mNotificationManager.notify(NOTIFICATION_SUCCESS_ID, mBuilder.build());
+                mNotificationManager.notify(2, mBuilder.build());
 
             }
         });
