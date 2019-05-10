@@ -54,9 +54,14 @@
 
     <ImageView
         android:id="@+id/imageView_avatars"
-        android:layout_width="156dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_centerInParent="true"
+        />
+        <!--tools:srcCompat="@tools:sample/avatars"-->
+
+
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,7 +102,7 @@
         android:id="@+id/button_avatars"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CHANGER L'IMAGE"
+        android:text="upload votre image"
         android:textColor="#ffffff"
         android:textStyle="bold" />
 
