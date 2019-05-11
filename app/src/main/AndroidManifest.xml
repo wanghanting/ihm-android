@@ -33,7 +33,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.lt.uploadpicdemo.fileProvider"
+            android:authorities="com.example.ihm_android.fileProvider"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data
