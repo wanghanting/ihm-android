@@ -72,8 +72,9 @@ public class AjouterAliment extends AppCompatActivity {
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp);
 
 
-        final String[] arr={"g","kg","package","unite"};
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice,arr);
+        final String[] arr={"g","kg","cl","l"};
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arr);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUnite.setAdapter(adapter);
         spinnerUnite.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -88,7 +89,8 @@ public class AjouterAliment extends AppCompatActivity {
         });
 
         final ArrayList<String> array = data.getTypes();
-        ArrayAdapter<String> adapter_type=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice,array);
+        ArrayAdapter<String> adapter_type=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,array);
+        adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter_type);
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

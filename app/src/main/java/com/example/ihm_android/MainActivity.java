@@ -7,14 +7,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,17 +20,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +38,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView mTextMessage, tvDeconnexionLink, tvListeAlimentLink;
     private Button ajouterButton;
     private ListView listViewAliment;
-    private ListView listViewType;
+    private Spinner listType;
     private String path= "Environment.getExternalStorageDirectory()";
 
     private class MySimpleAdapter extends SimpleAdapter {
@@ -131,31 +129,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private class TypeAdapter extends SimpleAdapter {
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View v = super.getView(position, convertView, parent);
-            Button button_name = (Button) v.findViewById(R.id.type);
-            button_name.setTag(position);
-            button_name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Data data = (Data)getApplication();
-                    String type = data.type_list.get(Integer.parseInt(v.getTag().toString())).getNom();
-                    data.setType(type);
-                    data.initalFoodListByType();
-                    Intent intent = new Intent();
-                    intent.setClass(data,MainActivity.class);
-                    startActivity(intent);
-                }
-            });
-            return v;
-        }
-        public TypeAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
-            super(context, data, resource, from, to);
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -179,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp);
 
-        MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list_by_type(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
+        final MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list_by_type(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listViewAliment.setAdapter(adapter);
         listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -188,13 +161,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        listViewType = (ListView)findViewById(R.id.list_type);
-        TypeAdapter adapter_type = new TypeAdapter(this,data.getButton_list(),R.layout.list_button,new String[] {"nom"}, new int[] {R.id.type});
-        listViewType.setAdapter(adapter_type);
-        listViewType.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listType = (Spinner)findViewById(R.id.spinner);
+        final ArrayList<String> array = data.getAllType();
+        ArrayAdapter<String> adapter_type=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,array);
+        adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listType.setAdapter(adapter_type);
+        listType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "you click"  + position + "st item", Toast.LENGTH_SHORT).show();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Data data = (Data)getApplication();
+                String type = listType.getSelectedItem().toString();
+                data.setType(type);
+                data.initalFoodListByType();
+                adapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, "点击了" + array.get(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 

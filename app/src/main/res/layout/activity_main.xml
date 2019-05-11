@@ -46,7 +46,7 @@
 
     <ListView
         android:id="@+id/list_food"
-        android:layout_width="304dp"
+        android:layout_width="367dp"
         android:layout_height="200dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -57,14 +57,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/message"
-        app:layout_constraintVertical_bias="0.452" />
-
-    <ListView
-        android:id="@+id/list_type"
-        android:layout_width="93dp"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toStartOf="@+id/list_food"
-        app:layout_constraintTop_toTopOf="@+id/list_food" />
+        app:layout_constraintVertical_bias="0.633" />
 
     <TextView
         android:id="@+id/tvListeAlimentLink"
@@ -76,6 +69,16 @@
         android:textColor="#304ffe"
         app:layout_constraintEnd_toStartOf="@+id/tvDeconnexionLink"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="154dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="28dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/list_food"
+        app:layout_constraintEnd_toEndOf="@+id/list_food" />
 
     <!--<com.twitter.sdk.android.core.identity.TwitterLoginButton-->
         <!--android:id="@+id/login_button"-->
