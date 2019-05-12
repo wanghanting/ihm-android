@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
+            int color=Color.rgb(0,133,119);
+            v.setBackgroundColor(color);
 
 //            final NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 //            final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
@@ -97,6 +100,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(intent);
                 }
             });
+            int colorWhite=Color.rgb(255,255,255);
+            info.setTextColor(colorWhite);
+
+            TextView unite = (TextView)v.findViewById(R.id.unite);
+            unite.setTag(position);
+            unite.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    data.setFlagnum(Integer.parseInt(v.getTag().toString()));
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, ChangerAliment.class);
+                    startActivity(intent);
+                }
+            });
+            unite.setTextColor(colorWhite);
+            unite.setTextSize(15);
+
             final EditText num = (EditText) v.findViewById(R.id.numCurrent);
             num.setTag(position);
             num.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             });
+            num.setTextColor(colorWhite);
             return v;
         }
 
