@@ -133,8 +133,8 @@ public class Data extends Application {
         else {
             for (int i = 0; i < this.aliment_list.size(); i++) {
                 Aliment food = this.aliment_list.get(i);
-                this.aliment_list_by_type.add(food);
                 if (food.getType().equals(this.type)) {
+                    this.aliment_list_by_type.add(food);
                     Map<String, Object> map = new HashMap<String, Object>();
                     map.put("image", food.getImgPath());
                     map.put("aliment", food.getNom() + "  \n" + df.format(food.getExpirationDate()));
@@ -152,14 +152,14 @@ public class Data extends Application {
         double sum_solid = 0;
         double sum_liquid = 0;
         for(int cpt = 0;cpt < food_list_by_type.size();cpt++){
-            if(aliment_list_by_type.get(cpt).getUnite()=="kg"){
+            if(aliment_list_by_type.get(cpt).getUnite().equals("kg")){
                 sum_solid += aliment_list_by_type.get(cpt).getQuantite();
-            }else if(aliment_list_by_type.get(cpt).getUnite()=="g"){
+            }else if(aliment_list_by_type.get(cpt).getUnite().equals("g")){
                 sum_solid += (double)aliment_list_by_type.get(cpt).getQuantite()/1000;
-            }else if(aliment_list_by_type.get(cpt).getUnite()=="L"){
+            }else if(aliment_list_by_type.get(cpt).getUnite().equals("L")){
                 sum_liquid += aliment_list_by_type.get(cpt).getQuantite();
-            }else if(aliment_list_by_type.get(cpt).getUnite()=="ml"){
-                sum_solid += (double)aliment_list_by_type.get(cpt).getQuantite()/1000;
+            }else if(aliment_list_by_type.get(cpt).getUnite().equals("ml")){
+                sum_liquid += (double)aliment_list_by_type.get(cpt).getQuantite()/1000;
             }
         }
         if(type.equals("Tout")){
@@ -167,7 +167,7 @@ public class Data extends Application {
         }else {
             this.sum_aliment.add(new Sum(this.type,""));
         }
-        DecimalFormat fmt = new DecimalFormat("##0.0");
+        DecimalFormat fmt = new DecimalFormat("##0.00");
         this.sum_aliment.add(new Sum("Solide",fmt.format(sum_solid)));
         this.sum_aliment.add(new Sum("Liquide",fmt.format(sum_liquid)));
     }
