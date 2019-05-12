@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_page"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Page d'accueil" />
+        <item
             android:id="@+id/nav_profil"
             android:icon="@drawable/ic_menu_camera"
             android:title="Mon profil" />
@@ -12,10 +16,6 @@
             android:id="@+id/nav_type"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Type d'aliments" />
-        <item
-            android:id="@+id/nav_follower"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Followers" />
         <item
             android:id="@+id/nav_consommation"
             android:icon="@drawable/ic_menu_manage"

@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 data.setType(type);
                 data.initalFoodListByType();
                 adapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "you click" + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -336,8 +336,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this,Profile.class));
                 break;
             case R.id.nav_type:
+                startActivity(new Intent(this,type_aliment.class));
                 break;
-            case R.id.nav_follower:
+            case R.id.nav_page:
+                startActivity(new Intent(this,MainActivity.class));
                 break;
             case R.id.nav_consommation:
                 startActivity(new Intent(this,Consommation.class));
