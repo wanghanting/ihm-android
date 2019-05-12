@@ -32,6 +32,7 @@ public class SendMessenger extends AppCompatActivity {
     private List<InformationContact> informationContacts;
     private ListView listContact;
     private String[] permissions;
+    private Button call;
     List<String> mPermissionList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class SendMessenger extends AppCompatActivity {
                 mPermissionList.add(permissions[i]);
             }
             if (mPermissionList.isEmpty()) {//未授予的权限为空，表示都授予了
-                Toast.makeText(SendMessenger.this,"已经授权",Toast.LENGTH_LONG).show();
+//                Toast.makeText(SendMessenger.this,"已经授权",Toast.LENGTH_LONG).show();
             } else {//请求权限方法
                 String[] permissions = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
                 ActivityCompat.requestPermissions(SendMessenger.this, permissions, 296);
@@ -67,9 +68,9 @@ public class SendMessenger extends AppCompatActivity {
 
         if (requestCode == 296) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(SendMessenger.this, "已经授权", Toast.LENGTH_LONG).show();
+//                Toast.makeText(SendMessenger.this, "已经授权", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(SendMessenger.this, "已经拒绝授权", Toast.LENGTH_LONG).show();
+                Toast.makeText(SendMessenger.this, "refused", Toast.LENGTH_LONG).show();
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -81,42 +82,50 @@ public class SendMessenger extends AppCompatActivity {
         listContact = (ListView) findViewById(R.id.listContact);
         MyAdapter myAdapter = new MyAdapter();
         listContact.setAdapter(myAdapter);
+        call = (Button) findViewById(R.id.call);
+        sendButton = (Button) findViewById(R.id.send_button);
+        telNumber = (EditText) findViewById(R.id.tel_number);
+        smsContenu = (EditText) findViewById(R.id.sms_text);
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Uri uriTel=Uri.parse("tel:"+telNumber.getText().toString().trim());
+                Intent intentTel=new Intent();
+                intentTel.setAction(Intent.ACTION_CALL);
+                intentTel.setData(uriTel);
+                SendMessenger.this.startActivity(intentTel);
+            }
+        });
+        sendButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                String phone_number = telNumber.getText().toString().trim();
+                String sms_content = smsContenu.getText().toString().trim();
+                if (phone_number.equals("")) {
+                    Toast.makeText(SendMessenger.this, "input number", Toast.LENGTH_LONG).show();
+                } else {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    if(sms_content.length() > 70) {
+                        List<String> contents = smsManager.divideMessage(sms_content);
+                        for(String sms : contents) {
+                            smsManager.sendTextMessage(phone_number, null, sms, null, null);
+                        }
+                    } else {
+                        smsManager.sendTextMessage(phone_number, null, sms_content, null, null);
+                    }
+               }
+
+                Intent intent = new Intent();
+                intent.setClass(SendMessenger.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         //给listview增加点击事件
         listContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 telNumber.setText(informationContacts.get(position).getTelPhone());
-                sendButton = (Button) findViewById(R.id.send_button);
-                telNumber = (EditText) findViewById(R.id.tel_number);
-                smsContenu = (EditText) findViewById(R.id.sms_text);
-                sendButton.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View arg0) {
-                        String phone_number = telNumber.getText().toString().trim();
-                        String sms_content = smsContenu.getText().toString().trim();
-                        if (phone_number.equals("")) {
-                            Toast.makeText(SendMessenger.this, "input number", Toast.LENGTH_LONG).show();
-                        } else {
-                            Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
-                            smsIntent.setDataAndType(Uri.parse("smsto:" + phone_number), "vnd.android-dir/mms-sms");
-
-                            smsIntent.putExtra("address", phone_number);
-                            smsIntent.putExtra("sms_body", sms_content);
-                            try {
-                                startActivity(smsIntent);
-                                Toast.makeText(SendMessenger.this, "success", Toast.LENGTH_SHORT).show();
-                            } catch (android.content.ActivityNotFoundException ex) {
-                                Toast.makeText(SendMessenger.this,
-                                        "SMS faild, please try again later." + ex, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        Intent intent = new Intent();
-                        intent.setClass(SendMessenger.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
             }
         });
     }

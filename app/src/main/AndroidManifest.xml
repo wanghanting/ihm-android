@@ -21,12 +21,12 @@
         <activity android:name=".Register" />
         <activity android:name=".Login" />
         <activity android:name=".SendMessenger">
-        <intent-filter >
+            <intent-filter >
             <action android:name="com.netease.push.action.client.MESSAGE"/>
             <action android:name="com.netease.push.action.client.NEWID"/>
             <action android:name="com.netease.push.action.client.METHOD"/>
             <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+            </intent-filter>
         </activity>
         <activity android:name=".Consommation"/>
         <activity android:name=".MainActivity">
