@@ -55,6 +55,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         button_avatars = (Button) findViewById(R.id.button_avatars);
         imageView_avatars = (ImageView) findViewById(R.id.imageView_avatars);
 
+        displayUserDetails(data.user);
+
         bHome.setOnClickListener(this);
 //        button_avatars.setOnClickListener(this);
         button_avatars.setOnClickListener(new View.OnClickListener() {

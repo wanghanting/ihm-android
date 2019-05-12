@@ -83,13 +83,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             supprimerButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
-                public void onClick(View v) {
-                    Data data= (Data)getApplication();
-//                    data.getFood_list().remove((int)v.getTag());
-                    data.deleteFood((int)v.getTag());
-                    data.initalFoodListByType();
-                    notifyDataSetChanged();
-//                    mNotificationManager.notify(2, mBuilder.build());
+                public void onClick(final View v) {
+                    AlertDialog.Builder altdial = new AlertDialog.Builder(MainActivity.this);
+                    altdial.setMessage("Voulez-vous vraiment supprimer cet aliment ?").setCancelable(false)
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Data data= (Data)getApplication();
+//                                  data.getFood_list().remove((int)v.getTag());
+                                    data.deleteFood((int)v.getTag());
+                                    data.initalFoodListByType();
+                                    notifyDataSetChanged();
+//                                  mNotificationManager.notify(2, mBuilder.build());
+                                }
+                            })
+                            .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                    AlertDialog alert = altdial.create();
+                    alert.show();
                 }
             });
             TextView info = (TextView)v.findViewById(R.id.aliInfo);
