@@ -124,9 +124,6 @@ public class type_aliment extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profil:
                 startActivity(new Intent(this,Profile.class));
                 break;
-            case R.id.nav_type:
-                startActivity(new Intent(this,type_aliment.class));
-                break;
             case R.id.nav_page:
                 startActivity(new Intent(this,MainActivity.class));
                 break;
