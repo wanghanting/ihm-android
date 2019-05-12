@@ -52,9 +52,9 @@ public class ChangerAliment extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        final String[] arr={"g","kg","package","unite"};
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_multiple_choice,arr);
-        spinnerUnite.setAdapter(adapter);
+        final String[] arr={"g","kg","ml","L"};
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arr);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUnite.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

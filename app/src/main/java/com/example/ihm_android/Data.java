@@ -3,6 +3,7 @@ package com.example.ihm_android;
 import android.app.Application;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,12 +14,17 @@ import java.util.Map;
 public class Data extends Application {
     User user;
     ArrayList<Aliment> aliment_list = new ArrayList<>();
+    ArrayList<Aliment> aliment_list_by_type = new ArrayList<>();
     ArrayList<Type> type_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String,Object>>();
     ArrayList<Map<String, Object>> button_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list_by_type = new ArrayList<>();
     ArrayList<String> type_aliment_name = new ArrayList<>();
     ArrayList<Integer> type_aliment_picture = new ArrayList<>();
+    ArrayList<Sum> sum_aliment = new ArrayList<>();
+    ArrayList<String> sum_food = new ArrayList<>();
+    ArrayList<Sum> sum_expired_aliment = new ArrayList<>();
+    ArrayList<Rate> rate_aliment = new ArrayList<>();
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     int flagnum;
     String type = "Tout";
@@ -129,14 +135,19 @@ public class Data extends Application {
 
     void initalFoodListByType(){
         this.getFood_list_by_type().clear();
+        this.aliment_list_by_type.clear();
         if(this.type.equals("Tout")){
             for (int i = 0; i < this.food_list.size(); i++) {
                 this.food_list_by_type.add(food_list.get(i));
+            }
+            for(int i = 0; i < this.aliment_list.size(); i++){
+                this.aliment_list_by_type.add(aliment_list.get(i));
             }
         }
         else {
             for (int i = 0; i < this.aliment_list.size(); i++) {
                 Aliment food = this.aliment_list.get(i);
+                this.aliment_list_by_type.add(food);
                 if (food.getType().equals(this.type)) {
                     Map<String, Object> map = new HashMap<String, Object>();
                     map.put("image", food.getImgPath());
@@ -148,7 +159,40 @@ public class Data extends Application {
                 }
             }
         }
-        System.out.print(food_list_by_type);
+    }
+
+    void setSum_food(){
+        sum_aliment.clear();
+        double sum_solid = 0;
+        double sum_liquid = 0;
+        for(int cpt = 0;cpt < food_list_by_type.size();cpt++){
+            if(aliment_list_by_type.get(cpt).getUnite()=="kg"){
+                sum_solid += aliment_list_by_type.get(cpt).getQuantite();
+            }else if(aliment_list_by_type.get(cpt).getUnite()=="g"){
+                sum_solid += (double)aliment_list_by_type.get(cpt).getQuantite()/1000;
+            }else if(aliment_list_by_type.get(cpt).getUnite()=="L"){
+                sum_liquid += aliment_list_by_type.get(cpt).getQuantite();
+            }else if(aliment_list_by_type.get(cpt).getUnite()=="ml"){
+                sum_solid += (double)aliment_list_by_type.get(cpt).getQuantite()/1000;
+            }
+        }
+        if(type.equals("Tout")){
+            this.sum_aliment.add(new Sum("Aliments",""));
+        }else {
+            this.sum_aliment.add(new Sum(this.type,""));
+        }
+        DecimalFormat fmt = new DecimalFormat("##0.0");
+        this.sum_aliment.add(new Sum("Solide",fmt.format(sum_solid)));
+        this.sum_aliment.add(new Sum("Liquide",fmt.format(sum_liquid)));
+    }
+
+    ArrayList<String> getSum_food(){
+        sum_food.clear();
+        setSum_food();
+        this.sum_food.add(this.sum_aliment.get(0).getNom());
+        this.sum_food.add(this.sum_aliment.get(1).getNom()+"    "+this.sum_aliment.get(1).getSum()+"kg");
+        this.sum_food.add(this.sum_aliment.get(2).getNom()+"   "+this.sum_aliment.get(2).getSum()+"L");
+        return this.sum_food;
     }
 
     User getUser(){return user;}

@@ -72,7 +72,7 @@ public class AjouterAliment extends AppCompatActivity {
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp);
 
 
-        final String[] arr={"g","kg","cl","l"};
+        final String[] arr={"g","kg","ml","L"};
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUnite.setAdapter(adapter);
