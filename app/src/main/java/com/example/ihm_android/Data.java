@@ -36,7 +36,6 @@ public class Data extends Application {
             initialAlimentList();
             initialFoodList();
             initialTypeList();
-            initialButtonList();
             initalFoodListByType();
             init_type_aliment_name();
             init_type_aliment_picture();
@@ -93,20 +92,7 @@ public class Data extends Application {
         this.type_list.add(new Type("fruit"));
         this.type_list.add(new Type("légume"));
         this.type_list.add(new Type("boisson"));
-        this.type_list.add(new Type("+"));
     }
-
-
-    void initialButtonList (){
-        this.getButton_list().clear();
-        for (int i = 0; i < this.type_list.size(); i++) {
-            Type type = this.type_list.get(i);
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("nom", type.getNom());
-            this.button_list.add(map);
-        }
-    }
-
 
 
     ArrayList<Map<String,Object>> getFood_list(){ return this.food_list;}
@@ -117,7 +103,7 @@ public class Data extends Application {
 
     ArrayList<String> getTypes(){
         ArrayList<String> types = new ArrayList<>();
-        for(int i = 1;i < this.type_list.size()-1;i++){
+        for(int i = 1;i < this.type_list.size();i++){
             types.add(this.type_list.get(i).getNom());
         }
         return types;
@@ -125,7 +111,7 @@ public class Data extends Application {
 
     ArrayList<String> getAllType(){
         ArrayList<String> types = new ArrayList<>();
-        for(int i = 0;i < this.type_list.size()-1;i++){
+        for(int i = 0;i < this.type_list.size();i++){
             types.add(this.type_list.get(i).getNom());
         }
         return types;
@@ -206,6 +192,10 @@ public class Data extends Application {
         map.put("unite",aliment.getUnite());
         map.put("supprimer", R.drawable.cross);
         this.food_list.add(map);
+    }
+
+    void addType(Type type){
+        this.type_list.add(type);
     }
     void setFlagnum(int flag){this.flagnum=flag;}
 }

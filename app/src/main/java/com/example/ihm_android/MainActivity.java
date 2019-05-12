@@ -1,10 +1,12 @@
 package com.example.ihm_android;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -16,10 +18,12 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,9 +50,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Context mContext;
     private TextView mTextMessage, tvDeconnexionLink, tvListeAlimentLink;
     private Button ajouterButton;
+    private Button bAddFoodType;
     private ListView listViewAliment;
     private Spinner listType;
     private String path= "Environment.getExternalStorageDirectory()";
+    Data data= (Data)getApplication();
 
     private class MySimpleAdapter extends SimpleAdapter {
         @Override
@@ -74,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 @Override
                 public void onClick(View v) {
-                    Data data= (Data)getApplication();
                     data.getFood_list().remove((int)v.getTag());
                     notifyDataSetChanged();
 //                    mNotificationManager.notify(2, mBuilder.build());
@@ -86,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 @Override
                 public void onClick(View v) {
-                    Data data = (Data)getApplication();
                     data.setFlagnum(Integer.parseInt(v.getTag().toString()));
                     Intent intent = new Intent();
                     intent.setClass(MainActivity.this, ChangerAliment.class);
@@ -113,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
 
                         public void afterTextChanged(Editable edit) {
-                            Data data = (Data) getApplication();
                             data.getAliment_list().get((int) v.getTag()).setQuantite(Integer.parseInt(num.getText().toString()));
                             data.initialFoodList();
                         }
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mTextMessage = (TextView) findViewById(R.id.message);
-        Data data= (Data)getApplication();
+        final Data data1= (Data)getApplication();
         listViewAliment = (ListView)findViewById(R.id.list_food) ;
 
         final NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -152,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp);
 
-        final MySimpleAdapter adapter = new MySimpleAdapter(this,data.getFood_list_by_type(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
+        final MySimpleAdapter adapter = new MySimpleAdapter(this,data1.getFood_list_by_type(),R.layout.list_item2,new String[] {"image", "aliment","num","unite","supprimer"}, new int[] {R.id.imaAliment,R.id.aliInfo,R.id.numCurrent,R.id.unite,R.id.supprimer});
         listViewAliment.setAdapter(adapter);
         listViewAliment.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -162,24 +165,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         listType = (Spinner)findViewById(R.id.spinner);
-        final ArrayList<String> array = data.getAllType();
-        ArrayAdapter<String> adapter_type=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,array);
+        final ArrayAdapter<String> adapter_type=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,data1.getAllType());
         adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listType.setAdapter(adapter_type);
         listType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Data data = (Data)getApplication();
                 String type = listType.getSelectedItem().toString();
-                data.setType(type);
-                data.initalFoodListByType();
+                data1.setType(type);
+                data1.initalFoodListByType();
                 adapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, "点击了" + array.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        bAddFoodType = (Button) findViewById(R.id.ajouter_type);
+        bAddFoodType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View view = (LayoutInflater.from(MainActivity.this)).inflate(R.layout.activity_user_input_food_type, null);
+
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
+                alertBuilder.setView(view);
+                final EditText edUserInputFoodType = (EditText) view.findViewById(R.id.edUserInputFoodType);
+
+                alertBuilder.setCancelable(true).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (!edUserInputFoodType.getText().toString().isEmpty()){
+                            data1.addType(new Type(edUserInputFoodType.getText().toString()));
+                        }
+                        adapter_type.notifyDataSetChanged();
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    }
+                });
+                Dialog dialog = alertBuilder.create();
+                dialog.show();
             }
         });
 
