@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ihm_android">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -18,7 +20,14 @@
         <activity android:name=".Profile" />
         <activity android:name=".Register" />
         <activity android:name=".Login" />
-        <activity android:name=".SendMessenger" />
+        <activity android:name=".SendMessenger">
+        <intent-filter >
+            <action android:name="com.netease.push.action.client.MESSAGE"/>
+            <action android:name="com.netease.push.action.client.NEWID"/>
+            <action android:name="com.netease.push.action.client.METHOD"/>
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
         <activity android:name=".Consommation"/>
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -44,6 +53,5 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
-
 
 </manifest>
