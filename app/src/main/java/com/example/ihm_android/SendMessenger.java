@@ -33,6 +33,7 @@ public class SendMessenger extends AppCompatActivity {
     private ListView listContact;
     private String[] permissions;
     private Button call;
+    private  Button read;
     List<String> mPermissionList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,15 @@ public class SendMessenger extends AppCompatActivity {
         sendButton = (Button) findViewById(R.id.send_button);
         telNumber = (EditText) findViewById(R.id.tel_number);
         smsContenu = (EditText) findViewById(R.id.sms_text);
+        read =  (Button) findViewById(R.id.read);
+        read.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent();
+                intent.setClass(SendMessenger.this,ReadMess.class);
+                startActivity(intent);
+            }
+        });
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

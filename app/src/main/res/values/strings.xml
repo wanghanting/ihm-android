@@ -4,6 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="nom_de_aliment">nom de aliment</string>
+    <string name="nom">nom</string>
     <string name="quantite">quantite</string>
     <string name="date_de_expiration">%1$s-%2$s-%3$s</string>
     <string name="ajouter">ajouter</string>
