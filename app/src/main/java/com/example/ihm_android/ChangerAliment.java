@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +26,7 @@ public class ChangerAliment extends AppCompatActivity {
     private EditText nomAliment;
     private EditText quantite;
     private Spinner spinnerUnite;
+    private Spinner spinnerType;
     private TextView dateExpiration;
     private String date;
 
@@ -39,6 +41,7 @@ public class ChangerAliment extends AppCompatActivity {
         nomAliment=(EditText) findViewById(R.id.txt_nomAliment);
         quantite=(EditText) findViewById(R.id.quantite);
         spinnerUnite = (Spinner) findViewById(R.id.spinner1);
+        spinnerType = (Spinner) findViewById(R.id.ali_type);
         expiration = (CalendarView) findViewById(R.id.ca_expiration);
         dateExpiration = (TextView) findViewById(R.id.dateExpiration);
         ajouterButton=(Button) findViewById(R.id.ajouter);
@@ -55,10 +58,27 @@ public class ChangerAliment extends AppCompatActivity {
         final String[] arr={"g","kg","ml","L"};
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerUnite.setAdapter(adapter);
         spinnerUnite.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(ChangerAliment.this, "点击了" + arr[position], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        final ArrayList<String> array = data.getTypes();
+        ArrayAdapter<String> adapter_type=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,array);
+        adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(adapter_type);
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ChangerAliment.this, "点击了" + array.get(position), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -103,7 +123,8 @@ public class ChangerAliment extends AppCompatActivity {
                 }
                 int number = Integer.parseInt(quantite.getText().toString());
                 String uni = spinnerUnite.getSelectedItem().toString();
-                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,"légume");
+                String type = spinnerType.getSelectedItem().toString();
+                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,type);
                 data.getAliment_list().remove(data.flagnum);
                 data.getAliment_list().add(data.flagnum, newAli);
                 data.initialFoodList();

@@ -194,6 +194,11 @@ public class Data extends Application {
         this.food_list.add(map);
     }
 
+    void deleteFood(int foodNumber){
+        this.aliment_list.remove(foodNumber);
+        this.food_list.remove(foodNumber);
+    }
+
     void addType(Type type){
         this.type_list.add(type);
     }
