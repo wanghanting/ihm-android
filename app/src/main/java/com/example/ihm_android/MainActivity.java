@@ -64,20 +64,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             int color=Color.rgb(0,133,119);
             v.setBackgroundColor(color);
 
-
-//            final NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//            final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext);
-//
-//            mBuilder.setContentTitle("Suppression")
-//                    .setContentText("Suppression avec succès")
-//                    .setContentIntent(getDefalutIntent(Notification.FLAG_AUTO_CANCEL))
-//                    .setTicker("Here comes the news!")
-//                    .setWhen(System.currentTimeMillis())
-//                    .setPriority(Notification.PRIORITY_MAX)
-//                    .setOngoing(false)
-//                    .setDefaults(Notification.DEFAULT_VIBRATE)
-//                    .setSmallIcon(R.drawable.ic_notifications_black_24dp);
-
             Button supprimerButton=(Button) v.findViewById(R.id.supprimer);
             supprimerButton.setTag(position);
             supprimerButton.setOnClickListener(new View.OnClickListener() {
@@ -291,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Action comming soon!", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Welcome back! Have a nice day!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -384,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
             f.createNewFile();
         } catch (IOException e) {
-            System.out.println("在保存图片时出错：" + e.toString());
+            System.out.println("Error: " + e.toString());
         }
         FileOutputStream fOut = null;
         try {
