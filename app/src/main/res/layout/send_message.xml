@@ -27,7 +27,7 @@
             <ListView
                 android:id="@+id/listContact"
                 android:layout_width="match_parent"
-                android:layout_height="309dp" />
+                android:layout_height="255dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             <EditText
                 android:id="@+id/sms_text"
                 android:layout_width="match_parent"
-                android:layout_height="233dp"
+                android:layout_height="176dp"
                 android:ems="10"
                 android:hint="@string/contenu"
                 android:inputType="textMultiLine"
@@ -74,6 +74,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/send" />
+
+            <Button
+                android:id="@+id/read"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="VOIR MESSAGES" />
         </LinearLayout>
     </ScrollView>
 
