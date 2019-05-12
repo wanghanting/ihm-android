@@ -68,8 +68,8 @@ public class Data extends Application {
     void initialAlimentList () throws ParseException {
 
         Date date1 = df.parse("2019-05-20");
-        this.aliment_list.add(new Aliment("apple",date1,3,"kg", R.drawable.apple, "fruit"));
-        this.aliment_list.add(new Aliment("pear",date1,5,"kg",R.drawable.pear,"fruit"));
+        this.aliment_list.add(new Aliment("pomme",date1,3,"kg", R.drawable.apple, "fruit"));
+        this.aliment_list.add(new Aliment("poire",date1,5,"kg",R.drawable.pear,"fruit"));
         this.aliment_list.add(new Aliment("orange",date1,8,"kg",R.drawable.orange,"fruit"));
     }
 

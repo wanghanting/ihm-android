@@ -121,16 +121,24 @@ public class ChangerAliment extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                int number = Integer.parseInt(quantite.getText().toString());
-                String uni = spinnerUnite.getSelectedItem().toString();
-                String type = spinnerType.getSelectedItem().toString();
-                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,type);
-                data.getAliment_list().remove(data.flagnum);
-                data.getAliment_list().add(data.flagnum, newAli);
-                data.initialFoodList();
-                Intent intent = new Intent();
-                intent.setClass(ChangerAliment.this,MainActivity.class);
-                startActivity(intent);
+                if (nom.length() == 0){
+                    nomAliment.setError("Entrer un nom d'aliment");
+                }
+                if (quantite.getText().toString().length() == 0){
+                    quantite.setError("Entrer une quantité");
+                }
+                else{
+                    int number = Integer.parseInt(quantite.getText().toString());
+                    String uni = spinnerUnite.getSelectedItem().toString();
+                    String type = spinnerType.getSelectedItem().toString();
+                    Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,type);
+                    data.getAliment_list().remove(data.flagnum);
+                    data.getAliment_list().add(data.flagnum, newAli);
+                    data.initialFoodList();
+                    Intent intent = new Intent();
+                    intent.setClass(ChangerAliment.this,MainActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });

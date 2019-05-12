@@ -129,6 +129,7 @@ public class AjouterAliment extends AppCompatActivity {
         ajouterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String nom = nomAliment.getText().toString();
                 Date dateExpi = null;
                 try {
@@ -136,17 +137,25 @@ public class AjouterAliment extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                int number = Integer.parseInt(quantite.getText().toString());
-                String uni = spinnerUnite.getSelectedItem().toString();
-                String type = spinnerType.getSelectedItem().toString();
-                Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,type);
-                data.addFood(newAli);
-                data.setType("Tout");
-                data.initalFoodListByType();
-                Intent intent = new Intent();
-                intent.setClass(AjouterAliment.this,MainActivity.class);
-                startActivity(intent);
-                mNotificationManager.notify(2, mBuilder.build());
+                if (nom.length() == 0){
+                    nomAliment.setError("Entrer un nom d'aliment");
+                }
+                if (quantite.getText().toString().length() == 0){
+                    quantite.setError("Entrer une quantité");
+                }
+                else{
+                    int number = Integer.parseInt(quantite.getText().toString());
+                    String uni = spinnerUnite.getSelectedItem().toString();
+                    String type = spinnerType.getSelectedItem().toString();
+                    Aliment newAli = new Aliment(nom,dateExpi,number,uni,R.drawable.add,type);
+                    data.addFood(newAli);
+                    data.setType("Tout");
+                    data.initalFoodListByType();
+                    Intent intent = new Intent();
+                    intent.setClass(AjouterAliment.this,MainActivity.class);
+                    startActivity(intent);
+                    mNotificationManager.notify(2, mBuilder.build());
+                }
 
             }
         });
