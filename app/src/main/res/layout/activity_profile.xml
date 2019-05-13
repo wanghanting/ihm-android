@@ -92,7 +92,7 @@
         android:id="@+id/bHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2979ff"
+        android:background="@color/colorPrimaryDark"
         android:text="Page d'accueil"
         android:textColor="#ffffff"
         android:textStyle="bold" />

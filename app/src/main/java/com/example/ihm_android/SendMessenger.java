@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -155,7 +156,7 @@ public class SendMessenger extends AppCompatActivity implements NavigationView.O
         });
     }
 
-        private class MyAdapter extends BaseAdapter {
+    private class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {

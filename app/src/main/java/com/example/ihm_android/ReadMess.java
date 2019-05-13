@@ -6,15 +6,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,20 +30,42 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ReadMess extends Activity {
     private Uri SMS_INBOX = Uri.parse("content://sms/");
     private ListView listMes;
+    private String permission= Manifest.permission.READ_SMS;
     ArrayList<Map<String, Object>> messlist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.read_message);
+        check();
         listMes = (ListView) findViewById(R.id.list_mess);
         getSmsFromPhone();
         MySimpleAdapter adapter = new MySimpleAdapter(this,messlist,R.layout.mess_item,new String[] {"num", "mess"}, new int[] {R.id.nom,R.id.mes});
         listMes.setAdapter(adapter);
+    }
+    private void check() {
+        //判断是否有权限
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, 1);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Toast.makeText(SendMessenger.this, "已经授权", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(ReadMess.this, "refused", Toast.LENGTH_LONG).show();
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 
