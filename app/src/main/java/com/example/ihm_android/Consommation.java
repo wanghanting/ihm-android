@@ -22,7 +22,11 @@ import java.util.ArrayList;
 public class Consommation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private Data data;
     private ListView listViewSum;
+    private ListView listViewGasSum;
+    private ListView listViewRate;
     private ArrayAdapter adapter;
+    private ArrayAdapter adapter_gas;
+    private ArrayAdapter adapter_rate;
     private Spinner listType;
 
     @Override
@@ -35,31 +39,33 @@ public class Consommation extends AppCompatActivity implements NavigationView.On
         listViewSum = (ListView)findViewById(R.id.sum_food) ;
         final ArrayList<String> array = data.getSum_food();
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array);
-//为listView的容器添加适配器
         listViewSum.setAdapter(adapter);
-        //设置点击事件mlv
         listViewSum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(Consommation.this, "你点击的是" + position, Toast.LENGTH_SHORT).show();
             }
         });
-//实现长按监听
-        listViewSum.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            /*
-             * 点击事件的参数
-             * 1、parent指定的是适配器AdqpterView绑定的视图容器,也就是Listview;
-             * 2、View:Item的适配器对象的view
-             * 3、position:Item在数据数组的对应下标所以
-             * id:Item所在的行号
-             * */
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                array.remove(position);
-                //监听数据源的改变
-                adapter.notifyDataSetChanged();
-                return true;
+        listViewGasSum = (ListView)findViewById(R.id.sum_gas) ;
+        final ArrayList<String> gas_array = data.getSum_food_gas();
+        adapter_gas = new ArrayAdapter(this, android.R.layout.simple_list_item_1, gas_array);
+        listViewGasSum.setAdapter(adapter_gas);
+        listViewGasSum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(Consommation.this, "你点击的是" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        listViewRate = (ListView)findViewById(R.id.rate) ;
+        final ArrayList<String> rate = data.getRate_food();
+        adapter_rate = new ArrayAdapter(this, android.R.layout.simple_list_item_1, rate);
+        listViewRate.setAdapter(adapter_rate);
+        listViewRate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(Consommation.this, "你点击的是" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -76,7 +82,11 @@ public class Consommation extends AppCompatActivity implements NavigationView.On
                 data.setType(type);
                 data.initalFoodListByType();
                 data.getSum_food();
+                data.getSum_food_gas();
+                data.getRate_food();
                 adapter.notifyDataSetChanged();
+                adapter_gas.notifyDataSetChanged();
+                adapter_rate.notifyDataSetChanged();
             }
 
             @Override

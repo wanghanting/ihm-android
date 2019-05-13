@@ -15,6 +15,8 @@ public class Data extends Application {
     User user;
     ArrayList<Aliment> aliment_list = new ArrayList<>();
     ArrayList<Aliment> aliment_list_by_type = new ArrayList<>();
+    ArrayList<Aliment> aliment_list_not_delete = new ArrayList<>();
+    ArrayList<Aliment> aliment_list_not_delete_by_type = new ArrayList<>();
     ArrayList<Type> type_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String, Object>>();
     ArrayList<Map<String, Object>> button_list = new ArrayList<>();
@@ -24,7 +26,9 @@ public class Data extends Application {
     ArrayList<Sum> sum_aliment = new ArrayList<>();
     ArrayList<String> sum_food = new ArrayList<>();
     ArrayList<Sum> sum_expired_aliment = new ArrayList<>();
+    ArrayList<String> sum_expired_food = new ArrayList<>();
     ArrayList<Rate> rate_aliment = new ArrayList<>();
+    ArrayList<String> rate_food = new ArrayList<>();
     static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     int flagnum;
     String type = "Tout";
@@ -77,6 +81,12 @@ public class Data extends Application {
         this.aliment_list.add(new Aliment("lait", date2, 1, "L", R.drawable.laitage, "laitage"));
         this.aliment_list.add(new Aliment("viande", date2, 500, "g", R.drawable.viande, "viande"));
         this.aliment_list.add(new Aliment("poisson", date3, 450, "g", R.drawable.poisson, "poisson"));
+        this.aliment_list_not_delete.add(new Aliment("pomme", date1, 3, "kg", R.drawable.apple, "fruit"));
+        this.aliment_list_not_delete.add(new Aliment("poire", date1, 5, "kg", R.drawable.pear, "fruit"));
+        this.aliment_list_not_delete.add(new Aliment("orange", date1, 8, "kg", R.drawable.orange, "fruit"));
+        this.aliment_list_not_delete.add(new Aliment("lait", date2, 1, "L", R.drawable.laitage, "laitage"));
+        this.aliment_list_not_delete.add(new Aliment("viande", date2, 500, "g", R.drawable.viande, "viande"));
+        this.aliment_list_not_delete.add(new Aliment("poisson", date3, 450, "g", R.drawable.poisson, "poisson"));
     }
 
     void initialFoodList() {
@@ -201,6 +211,23 @@ public class Data extends Application {
                 }
             }
         }
+        initalAlimentNotDelete();
+    }
+
+    void initalAlimentNotDelete(){
+        this.aliment_list_not_delete_by_type.clear();
+        if (this.type.equals("Tout")) {
+            for (int i = 0; i < this.aliment_list_not_delete.size(); i++) {
+                this.aliment_list_not_delete_by_type.add(aliment_list_not_delete.get(i));
+            }
+        }else {
+            for (int i = 0; i < this.aliment_list_not_delete.size(); i++) {
+                Aliment food = this.aliment_list_not_delete.get(i);
+                if (food.getType().equals(this.type)) {
+                    this.aliment_list_not_delete_by_type.add(food);
+                }
+            }
+        }
     }
 
     String getStatus(Aliment aliment){
@@ -215,28 +242,61 @@ public class Data extends Application {
 
     void setSum_food() {
         sum_aliment.clear();
-        double sum_solid = 0;
-        double sum_liquid = 0;
-        for (int cpt = 0; cpt < food_list_by_type.size(); cpt++) {
-            if (aliment_list_by_type.get(cpt).getUnite().equals("kg")) {
-                sum_solid += aliment_list_by_type.get(cpt).getQuantite();
-            } else if (aliment_list_by_type.get(cpt).getUnite().equals("g")) {
-                sum_solid += (double) aliment_list_by_type.get(cpt).getQuantite() / 1000;
-            } else if (aliment_list_by_type.get(cpt).getUnite().equals("L")) {
-                sum_liquid += aliment_list_by_type.get(cpt).getQuantite();
-            } else if (aliment_list_by_type.get(cpt).getUnite().equals("ml")) {
-                sum_liquid += (double) aliment_list_by_type.get(cpt).getQuantite() / 1000;
+        sum_expired_aliment.clear();
+        rate_aliment.clear();
+        double sum_all_solid = 0;
+        double sum_all_liquid = 0;
+        double sum_gaspillage_solid = 0;
+        double sum_gaspillage_liquid = 0;
+        for (int cpt = 0; cpt < aliment_list_not_delete_by_type.size(); cpt++) {
+            if (aliment_list_not_delete_by_type.get(cpt).getUnite().equals("kg")) {
+                sum_all_solid += aliment_list_not_delete_by_type.get(cpt).getQuantite();
+                if(getStatus(aliment_list_not_delete_by_type.get(cpt)).equals("périmé")){
+                    sum_gaspillage_solid += aliment_list_not_delete_by_type.get(cpt).getQuantite();
+                }
+            } else if (aliment_list_not_delete_by_type.get(cpt).getUnite().equals("g")) {
+                sum_all_solid += (double) aliment_list_not_delete_by_type.get(cpt).getQuantite() / 1000;
+                if(getStatus(aliment_list_not_delete_by_type.get(cpt)).equals("périmé")){
+                    sum_gaspillage_solid += (double)aliment_list_not_delete_by_type.get(cpt).getQuantite() / 1000;
+                }
+            } else if (aliment_list_not_delete_by_type.get(cpt).getUnite().equals("L")) {
+                sum_all_liquid += aliment_list_not_delete_by_type.get(cpt).getQuantite();
+                if(getStatus(aliment_list_not_delete_by_type.get(cpt)).equals("périmé")){
+                    sum_gaspillage_liquid += aliment_list_not_delete_by_type.get(cpt).getQuantite();
+                }
+            } else if (aliment_list_not_delete_by_type.get(cpt).getUnite().equals("ml")) {
+                sum_all_liquid += (double) aliment_list_not_delete_by_type.get(cpt).getQuantite() / 1000;
+                if(getStatus(aliment_list_not_delete_by_type.get(cpt)).equals("périmé")){
+                    sum_gaspillage_liquid += (double) aliment_list_not_delete_by_type.get(cpt).getQuantite() / 1000;
+                }
             }
         }
         if (type.equals("Tout")) {
             this.sum_aliment.add(new Sum("Aliments", ""));
+            this.sum_expired_aliment.add(new Sum("Aliments Gaspillage",""));
+            this.rate_aliment.add(new Rate("Taux",""));
         } else {
             this.sum_aliment.add(new Sum(this.type, ""));
+            this.sum_expired_aliment.add(new Sum(this.type + " Gaspillage",""));
+            this.rate_aliment.add(new Rate("Taux",""));
         }
         DecimalFormat fmt = new DecimalFormat("##0.00");
-        this.sum_aliment.add(new Sum("Solide", fmt.format(sum_solid)));
-        this.sum_aliment.add(new Sum("Liquide", fmt.format(sum_liquid)));
+        this.sum_aliment.add(new Sum("Solide", fmt.format(sum_all_solid)));
+        this.sum_aliment.add(new Sum("Liquide", fmt.format(sum_all_liquid)));
+        this.sum_expired_aliment.add(new Sum("Solide", fmt.format(sum_gaspillage_solid)));
+        this.sum_expired_aliment.add(new Sum("Liquide", fmt.format(sum_gaspillage_liquid)));
+        if(sum_gaspillage_solid == 0){
+            this.rate_aliment.add(new Rate("Solide","0.00%"));
+        }else {
+            this.rate_aliment.add(new Rate("Solide", fmt.format(sum_gaspillage_solid / sum_all_solid * 100) + "%"));
+        }
+        if(sum_gaspillage_liquid == 0){
+            this.rate_aliment.add(new Rate("Liquide","0.00%"));
+        }else {
+            this.rate_aliment.add(new Rate("Liquide", fmt.format(sum_gaspillage_liquid / sum_all_liquid * 100) + "%"));
+        }
     }
+
 
     ArrayList<String> getSum_food() {
         sum_food.clear();
@@ -247,12 +307,31 @@ public class Data extends Application {
         return this.sum_food;
     }
 
+    ArrayList<String> getSum_food_gas(){
+        sum_expired_food.clear();
+        setSum_food();
+        this.sum_expired_food.add(this.sum_expired_aliment.get(0).getNom());
+        this.sum_expired_food.add(this.sum_expired_aliment.get(1).getSum() + "kg");
+        this.sum_expired_food.add(this.sum_expired_aliment.get(2).getSum() + "L");
+        return this.sum_expired_food;
+    }
+
+    ArrayList<String> getRate_food(){
+        rate_food.clear();
+        setSum_food();
+        this.rate_food.add(this.rate_aliment.get(0).getNom());
+        this.rate_food.add(this.rate_aliment.get(1).getSum());
+        this.rate_food.add(this.rate_aliment.get(2).getSum());
+        return this.rate_food;
+    }
+
     User getUser() {
         return user;
     }
 
     void addFood(Aliment aliment) {
         this.aliment_list.add(aliment);
+        this.aliment_list_not_delete.add(aliment);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("image", aliment.getImgPath());
         map.put("aliment", aliment.getNom() + "  \n" + df.format(aliment.getExpirationDate()));
