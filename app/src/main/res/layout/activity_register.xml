@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="@color/colordi"
+        android:background="@color/colorAccent"
         android:text="S'enregistrer"
         android:textColor="#ffffff"
         android:textStyle="bold" />

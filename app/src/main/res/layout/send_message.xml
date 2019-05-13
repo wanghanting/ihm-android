@@ -75,8 +75,9 @@
                 android:id="@+id/send_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colordi"
-                android:text="@string/send" />
+                android:background="@color/colorAccent"
+                android:text="@string/send"
+                android:textColor="@color/colordif" />
 
         </LinearLayout>
     </ScrollView>
