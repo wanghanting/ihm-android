@@ -1,21 +1,33 @@
 package com.example.ihm_android;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.provider.CalendarContract;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -44,18 +56,24 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Context mContext;
     private TextView mTextMessage, tvDeconnexionLink, tvListeAlimentLink;
     private Button ajouterButton;
     private Button bAddFoodType;
+    private Button addCalender;
     private ListView listViewAliment;
     private Spinner listType;
     private Spinner listStatus;
     private String path= "Environment.getExternalStorageDirectory()";
+    private static String calanderURL = "content://com.android.calendar/calendars";
+    private static String calanderEventURL = "content://com.android.calendar/events";
+    private static String calanderRemiderURL = "content://com.android.calendar/reminders";
 //    Data data= (Data)getApplication();
 
     private class MySimpleAdapter extends SimpleAdapter {
@@ -286,6 +304,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        addCalender = (Button) findViewById(R.id.add_calender);
+        addCalender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initCalendars();
+                Data data= (Data)getApplication();
+                checkPermission();
+                String calId = "";
+                Cursor userCursor = getContentResolver().query(Uri.parse(calanderURL), null, null, null, null);
+                if (userCursor.getCount() > 0) {
+                    userCursor.moveToLast();  //注意：是向最后一个账户添加，开发者可以根据需要改变添加事件 的账户
+                    calId = userCursor.getString(userCursor.getColumnIndex("_id"));
+                } else {
+                    Toast.makeText(MainActivity.this, "没有账户，请先添加账户", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Aliment> aliments = data.getAliment_list();
+                for(Aliment ali :aliments) {
+                    ContentValues event = new ContentValues();
+                    event.put("title", ali.getNom() + " sera périmé");
+                    event.put("description", ali.getNom() + " sera périmé");
+                    // 插入账户
+                    event.put("calendar_id", calId);
+                    System.out.println("calId: " + calId);
+                    event.put("eventLocation", "france");
+
+                    java.util.Calendar mCalendar = java.util.Calendar.getInstance();
+                    long start = ali.getExpirationDate().getTime();
+                    mCalendar.set(Calendar.HOUR_OF_DAY, 12);
+                    long end = ali.getExpirationDate().getTime();
+
+                    event.put("dtstart", start);
+                    event.put("dtend", end);
+                    event.put("hasAlarm", 1);
+
+                    event.put(CalendarContract.Events.EVENT_TIMEZONE, "Europe/France");  //这个是时区，必须有，
+                    //添加事件
+                    Uri newEvent = getContentResolver().insert(Uri.parse(calanderEventURL), event);
+                    //事件提醒的设定
+                    long id = Long.parseLong(newEvent.getLastPathSegment());
+                    ContentValues values = new ContentValues();
+                    values.put("event_id", id);
+                    // 提前10分钟有提醒
+                    values.put("minutes", 10);
+                    getContentResolver().insert(Uri.parse(calanderRemiderURL), values);
+                }
+//                Intent intent = new Intent();
+//                intent.setClass(MainActivity.this, Test.class);
+//                startActivity(intent);
+
+                Toast.makeText(MainActivity.this, "插入事件成功!!!", Toast.LENGTH_LONG).show();
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -423,6 +495,65 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return null;
 
+    }
+
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            String[] permissions = new String[]{Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR}; // 选择你需要申请的权限
+            for (int i = 0; i < permissions.length; i++) {
+                int state = ContextCompat.checkSelfPermission(this, permissions[i]);
+                if (state != PackageManager.PERMISSION_GRANTED) { // 判断权限的状态
+                    ActivityCompat.requestPermissions(this, permissions, 200); // 申请权限
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
+            grantResults) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && requestCode == 200) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) { // 用户点的拒绝，仍未拥有权限
+                    Toast.makeText(this, "请在设置中打开摄像头或存储权限", Toast.LENGTH_SHORT).show();
+                    // 可以选择添加如下代码在系统设置中打开该应用的设置页面
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                    return;
+                }
+            }
+        }
+    }
+
+    private void initCalendars() {
+
+        TimeZone timeZone = TimeZone.getDefault();
+        ContentValues value = new ContentValues();
+        value.put(CalendarContract.Calendars.NAME, "yy");
+
+        value.put(CalendarContract.Calendars.ACCOUNT_NAME, "mygmailaddress@gmail.com");
+        value.put(CalendarContract.Calendars.ACCOUNT_TYPE, "com.android.exchange");
+        value.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, "mytt");
+        value.put(CalendarContract.Calendars.VISIBLE, 1);
+        value.put(CalendarContract.Calendars.CALENDAR_COLOR, -9206951);
+        value.put(CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL, CalendarContract.Calendars.CAL_ACCESS_OWNER);
+        value.put(CalendarContract.Calendars.SYNC_EVENTS, 1);
+        value.put(CalendarContract.Calendars.CALENDAR_TIME_ZONE, timeZone.getID());
+        value.put(CalendarContract.Calendars.OWNER_ACCOUNT, "mygmailaddress@gmail.com");
+        value.put(CalendarContract.Calendars.CAN_ORGANIZER_RESPOND, 0);
+
+        Uri calendarUri = CalendarContract.Calendars.CONTENT_URI;
+        calendarUri = calendarUri.buildUpon()
+                .appendQueryParameter(CalendarContract.CALLER_IS_SYNCADAPTER, "true")
+                .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_NAME, "chenss961214@gmail.com")
+                .appendQueryParameter(CalendarContract.Calendars.ACCOUNT_TYPE, "com.android.exchange")
+                .build();
+
+        getContentResolver().insert(calendarUri, value);
     }
 
 }
