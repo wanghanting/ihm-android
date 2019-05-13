@@ -93,6 +93,17 @@
         app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="@+id/list_food" />
 
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="155dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner"
+        app:layout_constraintEnd_toStartOf="@+id/spinner"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/list_food" />
+
     <!--<com.twitter.sdk.android.core.identity.TwitterLoginButton-->
         <!--android:id="@+id/login_button"-->
         <!--android:layout_width="wrap_content"-->

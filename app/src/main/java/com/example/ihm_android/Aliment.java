@@ -9,6 +9,8 @@ public class Aliment {
     private String unite;
     private int imgPath;
     private String type;
+    private int status;
+    Date currentTime = new Date();
 
     Aliment(String nom, Date expiration,int quantite,String  unite,int imgPath, String type) {
         this.nom = nom;
@@ -17,6 +19,7 @@ public class Aliment {
         this. unite =  unite;
         this.imgPath = imgPath;
         this.type = type;
+        this.status = (int) ((this.expirationDate.getTime() - currentTime.getTime()) / (1000 * 60 * 60 * 24));
     }
     String getNom(){ return this.nom;}
     Date getExpirationDate(){return this.expirationDate;}
@@ -25,4 +28,5 @@ public class Aliment {
     int getImgPath(){return this.imgPath;}
     void setQuantite(int q) {this.quantite=q;}
     String getType(){return this.type;}
+    int getStatus(){return this.status;}
 }

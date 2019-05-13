@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button bAddFoodType;
     private ListView listViewAliment;
     private Spinner listType;
+    private Spinner listStatus;
     private String path= "Environment.getExternalStorageDirectory()";
 //    Data data= (Data)getApplication();
 
@@ -205,6 +206,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Data data= (Data)getApplication();
                 String type = listType.getSelectedItem().toString();
                 data.setType(type);
+                data.initalFoodListByType();
+                adapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, "you click" + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        listStatus = (Spinner)findViewById(R.id.spinner2);
+        final String[] arr={"Tout","OK","périmé","presque périmé"};
+        final ArrayAdapter<String> adapter_status=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,arr);
+        adapter_status.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listStatus.setAdapter(adapter_status);
+        listStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Data data= (Data)getApplication();
+                String status = listStatus.getSelectedItem().toString();
+                data.setStatus(status);
                 data.initalFoodListByType();
                 adapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, "you click" + position, Toast.LENGTH_SHORT).show();
