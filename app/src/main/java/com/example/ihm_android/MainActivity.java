@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 adapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this,"you click" + position + "st item",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Succès",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 data.setType(type);
                 data.initalFoodListByType();
                 adapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, "you click" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Succès", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 data.setStatus(status);
                 data.initalFoodListByType();
                 adapter.notifyDataSetChanged();
-                Toast.makeText(MainActivity.this, "you click" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Succès", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                intent.setClass(MainActivity.this, Test.class);
 //                startActivity(intent);
 
-                Toast.makeText(MainActivity.this, "插入事件成功!!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Succès!!!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -505,7 +505,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && requestCode == 200) {
             for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) { // 用户点的拒绝，仍未拥有权限
-                    Toast.makeText(this, "请在设置中打开摄像头或存储权限", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Non authentification", Toast.LENGTH_SHORT).show();
                     // 可以选择添加如下代码在系统设置中打开该应用的设置页面
                     Intent intent = new Intent();
                     intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
