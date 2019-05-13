@@ -62,7 +62,7 @@ public class ChangerAliment extends AppCompatActivity {
         spinnerUnite.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ChangerAliment.this, "点击了" + arr[position], Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ChangerAliment.this, "点击了" + arr[position], Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -78,7 +78,7 @@ public class ChangerAliment extends AppCompatActivity {
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ChangerAliment.this, "点击了" + array.get(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ChangerAliment.this, "点击了" + array.get(position), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -99,7 +99,7 @@ public class ChangerAliment extends AppCompatActivity {
         expiration.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Toast toast= Toast.makeText(ChangerAliment.this,year + "年" + (month+1) + "月" + dayOfMonth + "日", Toast.LENGTH_LONG);
+                Toast toast= Toast.makeText(ChangerAliment.this,"you change date"+year + "-" + (month+1) + "-" + dayOfMonth , Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
                 String newdate= String.format(date,year,(month+1) ,dayOfMonth);
