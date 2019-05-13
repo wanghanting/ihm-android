@@ -79,7 +79,7 @@ public class AjouterAliment extends AppCompatActivity {
         spinnerUnite.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AjouterAliment.this, "点击了" + arr[position], Toast.LENGTH_SHORT).show();
+               // Toast.makeText(AjouterAliment.this, "点击了" + arr[position], Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -116,9 +116,9 @@ public class AjouterAliment extends AppCompatActivity {
         expiration.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Toast toast= Toast.makeText(AjouterAliment.this,year + "年" + (month+1) + "月" + dayOfMonth + "日", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
+                //Toast toast= Toast.makeText(AjouterAliment.this,year + "年" + (month+1) + "月" + dayOfMonth + "日", Toast.LENGTH_LONG);
+                //toast.setGravity(Gravity.CENTER, 0, 0);
+                //toast.show();
                 String newdate= String.format(date,year,(month+1) ,dayOfMonth);
                 dateExpiration.setText(newdate);
             }
