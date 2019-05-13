@@ -39,7 +39,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     protected static final int TAKE_PICTURE = 1;
     private static final int CROP_SMALL_PICTURE = 2;
     protected static Uri tempUri;
-    private  Uri destinationUri;
     Button bHome;
     Button button_avatars;
     EditText etLastName, etFirstName, etShortDescription, etLongDescription;
@@ -144,7 +143,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private void startCrop (Uri uri){
         UCrop.Options options = new UCrop.Options();
         //裁剪后图片保存在文件夹中
-        destinationUri = Uri.fromFile(new File(getExternalCacheDir(), "uCrop.jpg"));
+        Uri destinationUri= Uri.fromFile(new File(getExternalCacheDir(), "uCrop.jpg"));
         UCrop uCrop = UCrop.of(uri, destinationUri);//第一个参数是裁剪前的uri,第二个参数是裁剪后的uri
         uCrop.withAspectRatio(1, 1);//设置裁剪框的宽高比例
         //下面参数分别是缩放,旋转,裁剪框的比例
@@ -174,7 +173,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         etFirstName.setText(user.getFirstName());
         etShortDescription.setText(user.getSmallDescription());
         etLongDescription.setText(user.getLongDescription());
-        imageView_avatars.setImageURI(destinationUri);
     }
 
 
