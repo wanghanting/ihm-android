@@ -286,16 +286,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        tvListeAlimentLink = (TextView) findViewById(R.id.tvListeAlimentLink);
-        tvListeAlimentLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, type_aliment.class);
-                startActivity(intent);
-            }
-        });
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
