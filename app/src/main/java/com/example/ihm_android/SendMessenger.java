@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -103,15 +102,7 @@ public class SendMessenger extends AppCompatActivity implements NavigationView.O
         sendButton = (Button) findViewById(R.id.send_button);
         telNumber = (EditText) findViewById(R.id.tel_number);
         smsContenu = (EditText) findViewById(R.id.sms_text);
-        read =  (Button) findViewById(R.id.read);
-        read.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent intent = new Intent();
-                intent.setClass(SendMessenger.this,ReadMess.class);
-                startActivity(intent);
-            }
-        });
+
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

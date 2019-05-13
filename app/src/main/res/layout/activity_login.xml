@@ -66,11 +66,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etPassword"
-        android:background="#2979ff"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colordi"
         android:text="Se connecter"
-        android:layout_marginBottom="10dp"/>
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvRegisterLink"
