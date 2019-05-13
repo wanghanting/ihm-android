@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View v = super.getView(position, convertView, parent);
-            int color=Color.rgb(0,133,119);
+            int color=Color.rgb(242,239,230);
             v.setBackgroundColor(color);
 
             Button supprimerButton=(Button) v.findViewById(R.id.supprimer);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(intent);
                 }
             });
-            int colorWhite=Color.rgb(255,255,255);
+            int colorWhite=Color.rgb(73,90,128);
             info.setTextColor(colorWhite);
 
             TextView unite = (TextView)v.findViewById(R.id.unite);
