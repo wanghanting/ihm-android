@@ -358,15 +358,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Welcome back! Have a nice day!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -426,8 +417,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_consommation:
                 startActivity(new Intent(this,Consommation.class));
-                break;
-            case R.id.nav_share:
                 break;
             case  R.id.nav_send:
                 startActivity(new Intent(this,SendMessenger.class));

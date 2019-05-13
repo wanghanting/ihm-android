@@ -232,8 +232,6 @@ public class SendMessenger extends AppCompatActivity implements NavigationView.O
             case R.id.nav_consommation:
                 startActivity(new Intent(this,Consommation.class));
                 break;
-            case R.id.nav_share:
-                break;
             case  R.id.nav_send:
                 startActivity(new Intent(this,SendMessenger.class));
                 break;
