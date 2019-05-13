@@ -95,7 +95,7 @@ public class AjouterAliment extends AppCompatActivity {
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AjouterAliment.this, "点击了" + array.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AjouterAliment.this, "Clique sur " + array.get(position), Toast.LENGTH_SHORT).show();
             }
 
             @Override
