@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.yalantis.ucrop.UCrop;
@@ -38,6 +39,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     protected static final int TAKE_PICTURE = 1;
     private static final int CROP_SMALL_PICTURE = 2;
     protected static Uri tempUri;
+    private  Uri destinationUri;
     Button bHome;
     Button button_avatars;
     EditText etLastName, etFirstName, etShortDescription, etLongDescription;
@@ -59,6 +61,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         etLongDescription = (EditText) findViewById(R.id.etLongDescription);
         button_avatars = (Button) findViewById(R.id.button_avatars);
         imageView_avatars = (ImageView) findViewById(R.id.imageView_avatars);
+
+
 
         displayUserDetails(data.user);
 
@@ -137,11 +141,40 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    private void startCrop (Uri uri){
+        UCrop.Options options = new UCrop.Options();
+        //裁剪后图片保存在文件夹中
+        destinationUri = Uri.fromFile(new File(getExternalCacheDir(), "uCrop.jpg"));
+        UCrop uCrop = UCrop.of(uri, destinationUri);//第一个参数是裁剪前的uri,第二个参数是裁剪后的uri
+        uCrop.withAspectRatio(1, 1);//设置裁剪框的宽高比例
+        //下面参数分别是缩放,旋转,裁剪框的比例
+        imageView_avatars.setImageURI(destinationUri);
+        options.setAllowedGestures(UCropActivity.ALL, UCropActivity.NONE, UCropActivity.ALL);
+        options.setToolbarTitle("移动和缩放");//设置标题栏文字
+        options.setCropGridStrokeWidth(2);//设置裁剪网格线的宽度(我这网格设置不显示，所以没效果)
+        options.setCropFrameStrokeWidth(10);//设置裁剪框的宽度
+        options.setMaxScaleMultiplier(3);//设置最大缩放比例
+        options.setHideBottomControls(true);//隐藏下边控制栏
+        options.setShowCropGrid(true);  //设置是否显示裁剪网格
+//            options.setOvalDimmedLayer(true);//设置是否为圆形裁剪框
+        options.setShowCropFrame(false); //设置是否显示裁剪边框(true为方形边框)
+        options.setToolbarWidgetColor(Color.parseColor("#ffffff"));//标题字的颜色以及按钮颜色
+        options.setDimmedLayerColor(Color.parseColor("#AA000000"));//设置裁剪外颜色
+        options.setToolbarColor(Color.parseColor("#000000")); // 设置标题栏颜色
+        options.setStatusBarColor(Color.parseColor("#000000"));//设置状态栏颜色
+        options.setCropGridColor(Color.parseColor("#ffffff"));//设置裁剪网格的颜色
+        options.setCropFrameColor(Color.parseColor("#ffffff"));//设置裁剪框的颜色
+        uCrop.withOptions(options);
+        uCrop.start(this);
+        System.out.printf("剪裁成功");
+    }
+
     void displayUserDetails(User user) {
         etLastName.setText(user.getLastName());
         etFirstName.setText(user.getFirstName());
         etShortDescription.setText(user.getSmallDescription());
         etLongDescription.setText(user.getLongDescription());
+        imageView_avatars.setImageURI(destinationUri);
     }
 
 
@@ -156,8 +189,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     break;
                 case CHOOSE_PICTURE:
                     startCrop(data.getData()); // 开始对图片进行裁剪处理
-                    System.out.printf("开始剪裁");
-                    setImageToView(data);
+//                    System.out.printf("开始剪裁");
+//                    setImageToView(data);
                     break;
                 case CROP_SMALL_PICTURE:
 //                    if (data != null) {
@@ -169,6 +202,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                         if (croppedUri != null) {
                             Bitmap bit = BitmapFactory.decodeStream(getContentResolver().openInputStream(croppedUri));
                             imageView_avatars.setImageBitmap(bit);
+                            imageView_avatars.setImageURI(croppedUri);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -183,80 +217,35 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             }
         }
     }
-//    protected void startPhotoZoom(Uri uri) {
-//         if (uri == null) {
-//            Log.i("tag", "The uri is not exist.");
+
+
+
+//        protected void setImageToView (Intent data){
+//            Bundle extras = data.getExtras();
+//            if (extras != null) {
+//                Bitmap photo = extras.getParcelable("data");
+//                Log.d(TAG, "setImageToView:" + photo);
+//                photo = ImageUtils.toRoundBitmap(photo); // 这个时候的图片已经被处理成圆形的了
+//                imageView_avatars.setImageBitmap(photo);
+//                uploadPic(photo);
+//            }
 //        }
-//        tempUri = uri;
-//        Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setDataAndType(uri, "image/*");
-//        // 设置裁剪
-//        intent.putExtra("crop", "true");
-//        // aspectX aspectY 是宽高的比例
-//        intent.putExtra("aspectX", 1);
-//        intent.putExtra("aspectY", 1);
-//        // outputX outputY 是裁剪图片宽高
-//        intent.putExtra("outputX", 150);
-//        intent.putExtra("outputY", 150);
-//        intent.putExtra("return-data", true);
-//        startActivityForResult(intent, CROP_SMALL_PICTURE);
 //
-//
-//    }
-
-        private void startCrop (Uri uri){
-            UCrop.Options options = new UCrop.Options();
-            //裁剪后图片保存在文件夹中
-            Uri destinationUri = Uri.fromFile(new File(getExternalCacheDir(), "uCrop.jpg"));
-            UCrop uCrop = UCrop.of(uri, destinationUri);//第一个参数是裁剪前的uri,第二个参数是裁剪后的uri
-            uCrop.withAspectRatio(1, 1);//设置裁剪框的宽高比例
-            //下面参数分别是缩放,旋转,裁剪框的比例
-            options.setAllowedGestures(UCropActivity.ALL, UCropActivity.NONE, UCropActivity.ALL);
-            options.setToolbarTitle("移动和缩放");//设置标题栏文字
-            options.setCropGridStrokeWidth(2);//设置裁剪网格线的宽度(我这网格设置不显示，所以没效果)
-            options.setCropFrameStrokeWidth(10);//设置裁剪框的宽度
-            options.setMaxScaleMultiplier(3);//设置最大缩放比例
-            options.setHideBottomControls(true);//隐藏下边控制栏
-            options.setShowCropGrid(false);  //设置是否显示裁剪网格
-            options.setOvalDimmedLayer(true);//设置是否为圆形裁剪框
-            options.setShowCropFrame(false); //设置是否显示裁剪边框(true为方形边框)
-            options.setToolbarWidgetColor(Color.parseColor("#ffffff"));//标题字的颜色以及按钮颜色
-            options.setDimmedLayerColor(Color.parseColor("#AA000000"));//设置裁剪外颜色
-            options.setToolbarColor(Color.parseColor("#000000")); // 设置标题栏颜色
-            options.setStatusBarColor(Color.parseColor("#000000"));//设置状态栏颜色
-            options.setCropGridColor(Color.parseColor("#ffffff"));//设置裁剪网格的颜色
-            options.setCropFrameColor(Color.parseColor("#ffffff"));//设置裁剪框的颜色
-            uCrop.withOptions(options);
-            uCrop.start(this);
-            System.out.printf("剪裁成功");
-        }
-
-        protected void setImageToView (Intent data){
-            Bundle extras = data.getExtras();
-            if (extras != null) {
-                Bitmap photo = extras.getParcelable("data");
-                Log.d(TAG, "setImageToView:" + photo);
-                photo = ImageUtils.toRoundBitmap(photo); // 这个时候的图片已经被处理成圆形的了
-                imageView_avatars.setImageBitmap(photo);
-                uploadPic(photo);
-            }
-        }
-
-        private void uploadPic (Bitmap bitmap){
-            // 上传至服务器
-            // ... 可以在这里把Bitmap转换成file，然后得到file的url，做文件上传操作
-            // 注意这里得到的图片已经是圆形图片了
-            // bitmap是没有做个圆形处理的，但已经被裁剪了
-            String imagePath = ImageUtils.savePhoto(bitmap, Environment
-                    .getExternalStorageDirectory().getAbsolutePath(), String
-                    .valueOf(System.currentTimeMillis()));
-            Log.e("imagePath", imagePath + "");
-            if (imagePath != null) {
-                // 拿着imagePath上传了
-                // ...
-                Log.d(TAG, "imagePath:" + imagePath);
-            }
-        }
+//        private void uploadPic (Bitmap bitmap){
+//            // 上传至服务器
+//            // ... 可以在这里把Bitmap转换成file，然后得到file的url，做文件上传操作
+//            // 注意这里得到的图片已经是圆形图片了
+//            // bitmap是没有做个圆形处理的，但已经被裁剪了
+//            String imagePath = ImageUtils.savePhoto(bitmap, Environment
+//                    .getExternalStorageDirectory().getAbsolutePath(), String
+//                    .valueOf(System.currentTimeMillis()));
+//            Log.e("imagePath", imagePath + "");
+//            if (imagePath != null) {
+//                // 拿着imagePath上传了
+//                // ...
+//                Log.d(TAG, "imagePath:" + imagePath);
+//            }
+//        }
 
         @Override
         public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,
