@@ -26,13 +26,5 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/bAddFoodType"
-        android:background="@drawable/add"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_width="57dp"
-        android:layout_height="50dp" />
-
 
 </LinearLayout>

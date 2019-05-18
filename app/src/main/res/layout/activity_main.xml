@@ -38,6 +38,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tvListeAlimentLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="24dp"
+        android:text="Followers"
+        android:textColor="#304ffe"
+        app:layout_constraintEnd_toStartOf="@+id/tvDeconnexionLink"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/ajoutermain"
         android:layout_width="47dp"

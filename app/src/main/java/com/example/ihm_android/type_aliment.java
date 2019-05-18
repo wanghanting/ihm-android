@@ -25,7 +25,6 @@ import android.widget.Toast;
 public class type_aliment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Data data;
-    Button bAddFoodType;
     GridView grid;
 
     @Override
@@ -35,7 +34,6 @@ public class type_aliment extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         data = (Data) getApplication();
-        bAddFoodType = (Button) findViewById(R.id.bAddFoodType);
 
         CustomGrid adapter = new CustomGrid(type_aliment.this, data.type_aliment_name, data.type_aliment_picture);
         grid=(GridView)findViewById(R.id.grid);
@@ -44,32 +42,16 @@ public class type_aliment extends AppCompatActivity implements NavigationView.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(type_aliment.this, "You Clicked at " +data.type_aliment_name.get(+ position), Toast.LENGTH_SHORT).show();
+                User user = findUser(data.type_aliment_name.get(+ position));
+                Intent intent = new Intent(type_aliment.this, other_user.class);
+                intent.putExtra("username", user.getUsername());
+                intent.putExtra("nom", user.getLastName());
+                intent.putExtra("prenom", user.getFirstName());
+                intent.putExtra("smalldescription", user.getSmallDescription());
+                intent.putExtra("longDescription", user.getLongDescription());
+                intent.putExtra("numeroTel", user.getNumeroTel());
+                startActivity(intent);
 
-            }
-        });
-
-        bAddFoodType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view = (LayoutInflater.from(type_aliment.this)).inflate(R.layout.activity_user_input_food_type, null);
-
-                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(type_aliment.this);
-                alertBuilder.setView(view);
-                final EditText edUserInputFoodType = (EditText) view.findViewById(R.id.edUserInputFoodType);
-
-                alertBuilder.setCancelable(true).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (!edUserInputFoodType.getText().toString().isEmpty()){
-                            data.type_aliment_name.add(edUserInputFoodType.getText().toString());
-                            data.type_aliment_picture.add(R.drawable.login);
-                        }
-                        startActivity(new Intent(type_aliment.this, type_aliment.class));
-                    }
-                });
-                Dialog dialog = alertBuilder.create();
-                dialog.show();
             }
         });
 
@@ -81,6 +63,16 @@ public class type_aliment extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public User findUser(String username){
+        User user = null;
+        for (int i=0; i<data.users_list.size(); i++){
+            if (data.users_list.get(i).getUsername().equals(username)){
+                user = data.users_list.get(i);
+            }
+        }
+        return user;
     }
 
     @Override

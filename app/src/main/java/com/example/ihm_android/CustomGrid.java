@@ -13,21 +13,21 @@ import java.util.ArrayList;
 public class CustomGrid extends BaseAdapter{
     private Context mContext;
     //private final String[] web;
-    private final ArrayList<String> web;
+    private final ArrayList<String> user;
     //private final int[] Imageid;
     private final ArrayList<Integer> Imageid;
 
-    public CustomGrid(Context c, ArrayList<String> web,ArrayList<Integer> Imageid ) {
+    public CustomGrid(Context c, ArrayList<String> user,ArrayList<Integer> Imageid ) {
         mContext = c;
         this.Imageid = Imageid;
-        this.web = web;
+        this.user = user;
     }
 
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
         //return web.length;
-        return web.size();
+        return user.size();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class CustomGrid extends BaseAdapter{
             TextView textView = (TextView) grid.findViewById(R.id.grid_text);
             ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
             //textView.setText(web[position]);
-            textView.setText(web.get(position));
+            textView.setText(user.get(position));
             //imageView.setImageResource(Imageid[position]);
             imageView.setImageResource(Imageid.get(position));
         } else {

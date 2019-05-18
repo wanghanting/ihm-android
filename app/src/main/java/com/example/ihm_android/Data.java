@@ -33,6 +33,7 @@ public class Data extends Application {
     int flagnum;
     String type = "Tout";
     String status = "Tout";
+    ArrayList<User> users_list = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -42,6 +43,7 @@ public class Data extends Application {
             initialFoodList();
             initialTypeList();
             initalFoodListByType();
+            init_users_list();
             init_type_aliment_name();
             init_type_aliment_picture();
         } catch (ParseException e) {
@@ -51,23 +53,24 @@ public class Data extends Application {
     }
 
     void init_type_aliment_name() {
-        this.type_aliment_name.add("Fruit");
-        this.type_aliment_name.add("Légume");
-        this.type_aliment_name.add("Laitage");
-        this.type_aliment_name.add("Féculent");
-        this.type_aliment_name.add("Viande");
-        this.type_aliment_name.add("Boisson");
-        this.type_aliment_name.add("Poisson");
+        for (int i=0; i<users_list.size(); i++) {
+            this.type_aliment_name.add(users_list.get(i).getUsername());
+        }
+    }
+
+
+    void init_users_list(){
+        this.users_list.add(new User("John Doe", "Doe", "John", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
+        this.users_list.add(new User("Jane Doe", "Doe", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
+        this.users_list.add(new User("John Smith", "Smith", "John", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
+        this.users_list.add(new User("Jane Smith", "Smith", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
+        this.users_list.add(new User("Jane John", "John", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
     }
 
     void init_type_aliment_picture() {
-        this.type_aliment_picture.add(R.drawable.fruit);
-        this.type_aliment_picture.add(R.drawable.legume);
-        this.type_aliment_picture.add(R.drawable.laitage);
-        this.type_aliment_picture.add(R.drawable.feculent);
-        this.type_aliment_picture.add(R.drawable.viande);
-        this.type_aliment_picture.add(R.drawable.boisson);
-        this.type_aliment_picture.add(R.drawable.poisson);
+        for (int i=0; i<users_list.size(); i++){
+            this.type_aliment_picture.add(R.drawable.anonymous);
+        }
     }
 
     void initialAlimentList() throws ParseException {
@@ -328,6 +331,8 @@ public class Data extends Application {
     User getUser() {
         return user;
     }
+
+    ArrayList<User> getUsers_list() {return this.users_list;}
 
     void addFood(Aliment aliment) {
         this.aliment_list.add(aliment);

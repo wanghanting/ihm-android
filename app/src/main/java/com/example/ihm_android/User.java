@@ -11,6 +11,7 @@ public class User {
     private String firstName;
     private String smallDescription;
     private String longDescription;
+    private String numeroTel;
 
     User(String username,String password){
         this.username = username;
@@ -19,7 +20,17 @@ public class User {
         this.firstName = "";
         this.smallDescription = "";
         this.longDescription = "";
+        this.numeroTel="";
+    }
 
+    User(String username, String lastName, String firstName, String smallDescription, String longDescription, String numeroTel){
+        this.username = username;
+        this.password = "";
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.smallDescription = smallDescription;
+        this.longDescription = longDescription;
+        this.numeroTel = numeroTel;
     }
 
     public void setLastName(String lastName){this.lastName = lastName;}
@@ -33,4 +44,5 @@ public class User {
     public String getFirstName(){return firstName;}
     public String getSmallDescription(){return smallDescription;}
     public String getLongDescription(){return longDescription;}
+    public String getNumeroTel() {return numeroTel;}
 }
