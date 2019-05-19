@@ -21,8 +21,8 @@ public class Data extends Application {
     ArrayList<Map<String, Object>> food_list = new ArrayList<Map<String, Object>>();
     ArrayList<Map<String, Object>> button_list = new ArrayList<>();
     ArrayList<Map<String, Object>> food_list_by_type = new ArrayList<>();
-    ArrayList<String> type_aliment_name = new ArrayList<>();
-    ArrayList<Integer> type_aliment_picture = new ArrayList<>();
+    ArrayList<String> other_user_username = new ArrayList<>();
+    ArrayList<Integer> other_user_picture = new ArrayList<>();
     ArrayList<Sum> sum_aliment = new ArrayList<>();
     ArrayList<String> sum_food = new ArrayList<>();
     ArrayList<Sum> sum_expired_aliment = new ArrayList<>();
@@ -44,32 +44,32 @@ public class Data extends Application {
             initialTypeList();
             initalFoodListByType();
             init_users_list();
-            init_type_aliment_name();
-            init_type_aliment_picture();
+            init_other_user_username();
+            init_other_user_picture();
         } catch (ParseException e) {
             e.printStackTrace();
         }
         super.onCreate();
     }
 
-    void init_type_aliment_name() {
+    void init_other_user_username() {
         for (int i=0; i<users_list.size(); i++) {
-            this.type_aliment_name.add(users_list.get(i).getUsername());
+            this.other_user_username.add(users_list.get(i).getUsername());
         }
     }
 
 
     void init_users_list(){
-        this.users_list.add(new User("John Doe", "Doe", "John", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
-        this.users_list.add(new User("Jane Doe", "Doe", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
-        this.users_list.add(new User("John Smith", "Smith", "John", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
-        this.users_list.add(new User("Jane Smith", "Smith", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
-        this.users_list.add(new User("Jane John", "John", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0621888340"));
+        this.users_list.add(new User("John Doe", "Doe", "John", "J'aime l'écologie", "Je déteste gaspiller", "0123456789"));
+        this.users_list.add(new User("Jane Doe", "Doe", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0123456789"));
+        this.users_list.add(new User("John Smith", "Smith", "John", "J'aime l'écologie", "Je déteste gaspiller", "0123456789"));
+        this.users_list.add(new User("Jane Smith", "Smith", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0123456789"));
+        this.users_list.add(new User("Jane John", "John", "Jane", "J'aime l'écologie", "Je déteste gaspiller", "0123456789"));
     }
 
-    void init_type_aliment_picture() {
+    void init_other_user_picture() {
         for (int i=0; i<users_list.size(); i++){
-            this.type_aliment_picture.add(R.drawable.anonymous);
+            this.other_user_picture.add(R.drawable.anonymous);
         }
     }
 

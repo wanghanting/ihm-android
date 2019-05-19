@@ -3,6 +3,7 @@ package com.example.ihm_android;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class other_user extends AppCompatActivity {
@@ -13,11 +14,12 @@ public class other_user extends AppCompatActivity {
     TextView etShortDescriptionFollower;
     TextView etLongDescriptionFollower;
     TextView tvNumeroTel;
+    Button bSendMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_other_user);
+        setContentView(R.layout.activity_other_users_profil);
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
@@ -33,6 +35,7 @@ public class other_user extends AppCompatActivity {
         etShortDescriptionFollower = (TextView) findViewById(R.id.etShortDescriptionFollower);
         etLongDescriptionFollower = (TextView) findViewById(R.id.etLongDescriptionFollower);
         tvNumeroTel = (TextView) findViewById(R.id.tvNumeroTel);
+        bSendMessage = (Button) findViewById(R.id.bSendMessage);
 
 
         tvUserNameFollower.setText(username);

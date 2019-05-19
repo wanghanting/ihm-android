@@ -37,6 +37,8 @@ public class User {
     public void setFirstName(String firstName){this.firstName = firstName;}
     public void setSmallDescription(String smallDescription){this.smallDescription = smallDescription;}
     public void setLongDescription(String longDescription){this.longDescription = longDescription;}
+    public void setNumeroTel(String numeroTel){this.numeroTel =numeroTel;}
+
 
     public String getUsername() {return username;}
     public String getPassword(){return password;}

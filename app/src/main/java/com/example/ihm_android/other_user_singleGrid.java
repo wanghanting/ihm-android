@@ -1,28 +1,20 @@
 package com.example.ihm_android;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 
-public class type_aliment extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class other_user_singleGrid extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Data data;
     GridView grid;
@@ -35,15 +27,15 @@ public class type_aliment extends AppCompatActivity implements NavigationView.On
 
         data = (Data) getApplication();
 
-        CustomGrid adapter = new CustomGrid(type_aliment.this, data.type_aliment_name, data.type_aliment_picture);
+        Other_user_customGrid adapter = new Other_user_customGrid(other_user_singleGrid.this, data.other_user_username, data.other_user_picture);
         grid=(GridView)findViewById(R.id.grid);
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                User user = findUser(data.type_aliment_name.get(+ position));
-                Intent intent = new Intent(type_aliment.this, other_user.class);
+                User user = findUser(data.other_user_username.get(+ position));
+                Intent intent = new Intent(other_user_singleGrid.this, other_user.class);
                 intent.putExtra("username", user.getUsername());
                 intent.putExtra("nom", user.getLastName());
                 intent.putExtra("prenom", user.getFirstName());

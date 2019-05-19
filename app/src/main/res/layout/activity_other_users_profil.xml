@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".other_user">
 
     <TextView
@@ -23,71 +24,88 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Nom"
+        android:textColor="#2979ff"
         android:textStyle="bold"
-        android:textSize="15dp"/>
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/etLastNameFollower"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="20dp"
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Prénom"
+        android:textColor="#2979ff"
         android:textStyle="bold"
-        android:textSize="15dp"/>
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/etFirstNameFollower"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="20dp"
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="En quelques mots"
+        android:textColor="#2979ff"
         android:textStyle="bold"
-        android:textSize="15dp"/>
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/etShortDescriptionFollower"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="20dp"
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Description détaillée"
+        android:textColor="#2979ff"
         android:textStyle="bold"
-        android:textSize="15dp"/>
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/etLongDescriptionFollower"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:ems="10" />
+        android:layout_marginBottom="20dp"
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Numéro de téléphone"
+        android:textColor="#2979ff"
         android:textStyle="bold"
-        android:textSize="15dp"/>
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/tvNumeroTel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:ems="10" />
+        android:layout_marginBottom="20dp"
+        android:textSize="15dp" />
+
+    <Button
+        android:id="@+id/bSendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Envoyer un message"
+        android:background="#2979ff"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
 
 </LinearLayout>

@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CustomGrid extends BaseAdapter{
+public class Other_user_customGrid extends BaseAdapter{
     private Context mContext;
     //private final String[] web;
     private final ArrayList<String> user;
     //private final int[] Imageid;
     private final ArrayList<Integer> Imageid;
 
-    public CustomGrid(Context c, ArrayList<String> user,ArrayList<Integer> Imageid ) {
+    public Other_user_customGrid(Context c, ArrayList<String> user, ArrayList<Integer> Imageid ) {
         mContext = c;
         this.Imageid = Imageid;
         this.user = user;
@@ -52,7 +52,7 @@ public class CustomGrid extends BaseAdapter{
         if (convertView == null) {
 
             grid = new View(mContext);
-            grid = inflater.inflate(R.layout.activity_single_grid, null);
+            grid = inflater.inflate(R.layout.activity_other_user_single_grid, null);
             TextView textView = (TextView) grid.findViewById(R.id.grid_text);
             ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
             //textView.setText(web[position]);

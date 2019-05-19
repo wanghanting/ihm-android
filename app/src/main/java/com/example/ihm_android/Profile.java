@@ -41,7 +41,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     protected static Uri tempUri;
     Button bHome;
     Button button_avatars;
-    EditText etLastName, etFirstName, etShortDescription, etLongDescription;
+    EditText etLastName, etFirstName, etShortDescription, etLongDescription, etNumeroTel;
     ImageView imageView_avatars;
     Data data;
 
@@ -58,6 +58,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etShortDescription = (EditText) findViewById(R.id.etShortDescription);
         etLongDescription = (EditText) findViewById(R.id.etLongDescription);
+        etNumeroTel = (EditText) findViewById(R.id.etNumeroTel);
         button_avatars = (Button) findViewById(R.id.button_avatars);
         imageView_avatars = (ImageView) findViewById(R.id.imageView_avatars);
 
@@ -135,6 +136,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 data.user.setFirstName(etFirstName.getText().toString());
                 data.user.setSmallDescription(etShortDescription.getText().toString());
                 data.user.setLongDescription(etLongDescription.getText().toString());
+                data.user.setNumeroTel(etNumeroTel.getText().toString());
                 startActivity(new Intent(this, MainActivity.class));
                 break;
         }
@@ -173,6 +175,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         etFirstName.setText(user.getFirstName());
         etShortDescription.setText(user.getSmallDescription());
         etLongDescription.setText(user.getLongDescription());
+        etNumeroTel.setText(user.getNumeroTel());
     }
 
 
