@@ -46,6 +46,7 @@ public class SendMessenger extends AppCompatActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_message);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
          permissions = new String[]{
                 Manifest.permission.SEND_SMS,
@@ -64,6 +65,7 @@ public class SendMessenger extends AppCompatActivity implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
 
     }
+
     private void check() {
         //判断是否有权限
         for (int i = 0; i < permissions.length; i++) {
@@ -102,6 +104,15 @@ public class SendMessenger extends AppCompatActivity implements NavigationView.O
         sendButton = (Button) findViewById(R.id.send_button);
         telNumber = (EditText) findViewById(R.id.tel_number);
         smsContenu = (EditText) findViewById(R.id.sms_text);
+
+        Intent intent = getIntent();
+        if (intent != null){
+            String numeroTel = "";
+            if (intent.hasExtra("numeroTel")){
+                numeroTel = intent.getStringExtra("numeroTel");
+                telNumber.setText(numeroTel);
+            }
+        }
 
         call.setOnClickListener(new View.OnClickListener() {
             @Override

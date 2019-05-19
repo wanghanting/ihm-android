@@ -12,9 +12,7 @@ import java.util.ArrayList;
 
 public class Other_user_customGrid extends BaseAdapter{
     private Context mContext;
-    //private final String[] web;
     private final ArrayList<String> user;
-    //private final int[] Imageid;
     private final ArrayList<Integer> Imageid;
 
     public Other_user_customGrid(Context c, ArrayList<String> user, ArrayList<Integer> Imageid ) {
@@ -26,7 +24,6 @@ public class Other_user_customGrid extends BaseAdapter{
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        //return web.length;
         return user.size();
     }
 
@@ -55,9 +52,7 @@ public class Other_user_customGrid extends BaseAdapter{
             grid = inflater.inflate(R.layout.activity_other_user_single_grid, null);
             TextView textView = (TextView) grid.findViewById(R.id.grid_text);
             ImageView imageView = (ImageView)grid.findViewById(R.id.grid_image);
-            //textView.setText(web[position]);
             textView.setText(user.get(position));
-            //imageView.setImageResource(Imageid[position]);
             imageView.setImageResource(Imageid.get(position));
         } else {
             grid = (View) convertView;
