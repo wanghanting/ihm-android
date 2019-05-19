@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     userCursor.moveToLast();  //注意：是向最后一个账户添加，开发者可以根据需要改变添加事件 的账户
                     calId = userCursor.getString(userCursor.getColumnIndex("_id"));
                 } else {
-                    Toast.makeText(MainActivity.this, "没有账户，请先添加账户", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Pas de compte", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Aliment> aliments = data.getAliment_list();
@@ -424,6 +424,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_consommation:
                 startActivity(new Intent(this,Consommation.class));
+                break;
+            case R.id.nav_follower:
+                startActivity(new Intent(this,other_user_singleGrid.class));
                 break;
             case  R.id.nav_send:
                 startActivity(new Intent(this,SendMessenger.class));

@@ -16,6 +16,10 @@
             android:id="@+id/nav_consommation"
             android:icon="@drawable/ic_menu_manage"
             android:title="Consommation" />
+        <item
+            android:id="@+id/nav_follower"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Follower" />
     </group>
 
     <item android:title="Communicate">
