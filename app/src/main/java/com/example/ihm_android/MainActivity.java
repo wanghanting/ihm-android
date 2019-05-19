@@ -301,15 +301,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        tvListeAlimentLink = (TextView) findViewById(R.id.tvListeAlimentLink);
-        tvListeAlimentLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, other_user_singleGrid.class);
-                startActivity(intent);
-            }
-        });
+//        tvListeAlimentLink = (TextView) findViewById(R.id.tvListeAlimentLink);
+//        tvListeAlimentLink.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setClass(MainActivity.this, other_user_singleGrid.class);
+//                startActivity(intent);
+//            }
+//        });
 
         addCalender = (Button) findViewById(R.id.add_calender);
         addCalender.setOnClickListener(new View.OnClickListener() {
